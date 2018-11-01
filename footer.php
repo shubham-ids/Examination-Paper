@@ -240,5 +240,28 @@
 <script src="<?php echo URL; ?>dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo URL; ?>dist/js/demo.js"></script>
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.checkAll').click(function(){
+      $('.checkItem').prop('checked', $(this).prop('checked'));
+    });
+    $('.checkItem').click(function(){
+      $('.checkItem : checked').prop 
+    });
+  });
+</script>
+<script>
+  $(function () {
+    $('#example1').DataTable()
+    $('#example2').DataTable({
+      'paging'      : true,
+      'lengthChange': false,
+      'searching'   : false,
+      'ordering'    : true,
+      'info'        : true,
+      'autoWidth'   : false
+    })
+  })
+</script>
 </body>
 </html>
