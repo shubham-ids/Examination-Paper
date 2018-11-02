@@ -2,6 +2,7 @@
   include_once('phpCode/list.php');
   include_once('../header.php'); 
 ?>
+<form method="get">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,30 +29,20 @@
             <!-- /.box-header -->
             <div class="box-body" >
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                <div class="row">
-                  <div class="col col-xs-6 text-left">
-                    <div class="input-group col col-xs-9">
-                      <select class="custom-select" id="inputGroupSelect04" name="multiDelete">
-                        <option value="">Choose...</option>
-                        <option value="deleted">Deleted</option>
-                      </select>
-                      <div class="input-group-append">
-                        <button class="btn btn-sm btn-primary btn-create" id="actionButton" name="action">Action</button>
-                      </div>
-                    </div>
-                  </div>                          
-                  <div class="col-sm-4">
-                    <div class="dataTables_length" id="example1_length">
-                      <label>Show 
-                        <select name="example1_length" aria-controls="example1" class="form-control input-sm">
-                          <option value="10">10</option>
-                          <option value="25">25</option>
-                          <option value="50">50</option>
-                          <option value="100">100</option>
-                        </select> entries
-                      </label>
-                    </div>                  
-                    <div class="dataTables_length" id="example1_length">
+                <div class="row">                      
+                  <div class="col-sm-8">
+                  <!--  <form> -->
+                      <div class="dataTables_length col-sm-4" id="example1_length">
+                        <label>
+                          <select aria-controls="example1" name="multiAction" class="form-control input-sm">
+                            <option value="">Select</option>
+                            <option value="deleted">Delete</option>
+                          </select>
+                          <button class="btn btn-sm btn-primary btn-create" id="actionButton">Action</button>
+                        </label>
+                      </div>   
+                   <!-- </form>  -->             
+                    <div class="dataTables_length col-sm-4" id="example1_length">
                       <label>Show 
                         <select name="example1_length" aria-controls="example1" class="form-control input-sm">
                           <option value="10">10</option>
@@ -85,8 +76,8 @@
                       <tr>
                         <td align="left">
                           <a 
-                            class          = "btn btn-default"
-                            title          = "Edit">
+                            class = "btn btn-default"
+                            title = "Edit">
                             <em class="fa fa-pencil"></em>
                           </a>
                           <a 
@@ -96,7 +87,7 @@
                             <em class="fa fa-trash"></em>
                           </a>
                         </td>
-                        <td><input type="checkbox" name="users[]" class="checkItem"></td>
+                        <td><input type="checkbox" name="users[]" class="checkItem" value="<?php echo $row['id']; ?>"></td>
                         <td><?php echo $row['firstname']; ?></td>
                         <td><?php echo $row['lastname']; ?></td>
                         <td><?php echo $row['username']; ?></td>
@@ -128,4 +119,5 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+</form>  
 <?php include_once('../footer.php'); ?>

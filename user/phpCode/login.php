@@ -16,10 +16,6 @@ try{
       $validationErrorMssage = true;
     }
     if($validationErrorMssage == false){
-    // This Email and password only for Admin
-      if($email == "shubham@gmail.com" && $password == "incredible"){
-       return header('location:../index.php');
-      }
     // This method is used to   
       $query = "
         SELECT 
@@ -39,7 +35,12 @@ try{
       $row = $selectQuery->fetch();
       $rowCount = $selectQuery->rowCount();
       if($rowCount > 0){
-        $message = "Wellcome";
+      // This Email and password only for Admin
+        if($email == "shubham@jyoti"){
+          return header('location:../index.php');
+        }else{
+          $message = "Wellcome";
+        }  
       }else{
         $message  = "Invalide email and password";
       }

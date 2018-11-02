@@ -41,4 +41,45 @@ $(document).ready(function(){
     alert('No action taken');
   }
   });  
+
+/*
+ * Multiple records are delete successfull using jQuery,Ajax
+ */
+   $('#actionButton').click( function(){
+    var post_arr = [];
+    var message  = "Are you sure you want to delete this multiple Records !";
+    if( $('.checkItem:checked').length == '' ){
+       return alert('Please select atleast one checkbox');
+    }
+    $('.checkItem:checked').each(function(){        
+      post_arr.push( $(this).val() );
+    });
+    if(confirm(message)){
+      $.ajax({
+        type: "get",
+        url: "?multiAction=deleted",
+        data:{ users : post_arr } ,
+        //cache: true,
+        beforeSend: function() {
+          $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' },3000);
+        },      
+        success: function(response) {
+          $.each(post_arr, function() {
+            $(parent).slideUp(3000,function() {
+              $('.checkItem:checked').parents("tr").remove();
+            });
+          });
+          alert('Data delete successfull');
+        },
+        error: function(){
+          alert('Your records are not delete');
+        }
+      });
+    }else{
+      alert('No action taken');
+    }
+    return false;
+  });
+
+
 });
