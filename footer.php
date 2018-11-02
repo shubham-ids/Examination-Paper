@@ -205,6 +205,8 @@
 <!-- jQuery 3 -->
 <script src="<?php echo URL; ?>js/jquery.min.js"></script>
 <!-- jQuery UI 1.11.4 -->
+<!-- -->
+<script src="<?php echo URL; ?>js/custom.js"></script>
 <script src="<?php echo URL; ?>bower_components/jquery-ui/jquery-ui.min.js"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
@@ -240,16 +242,6 @@
 <script src="<?php echo URL; ?>dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo URL; ?>dist/js/demo.js"></script>
-<script type="text/javascript">
-  $(document).ready(function(){
-    $('.checkAll').click(function(){
-      $('.checkItem').prop('checked', $(this).prop('checked'));
-    });
-    $('.checkItem').click(function(){
-      $('.checkItem : checked').prop 
-    });
-  });
-</script>
 <script>
   $(function () {
     $('#example1').DataTable()

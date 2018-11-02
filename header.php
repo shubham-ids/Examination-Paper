@@ -22,6 +22,9 @@
   <link rel="stylesheet" href="<?php echo URL; ?>dist/css/skins/_all-skins.min.css">
   <!-- Morris chart -->
   <link rel="stylesheet" href="<?php echo URL; ?>bower_components/morris.js/morris.css">
+    <!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo URL; ?>bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
   <!-- jvectormap -->
   <link rel="stylesheet" href="<?php echo URL; ?>bower_components/jvectormap/jquery-jvectormap.css">
   <!-- Date Picker -->

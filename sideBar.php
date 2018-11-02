@@ -5,7 +5,7 @@
     <!-- Sidebar user panel -->
     <div class="user-panel">
       <div class="pull-left image">
-        <img src="dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
+        <img src="<?php echo URL; ?>dist/img/user2-160x160.jpg" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
         <p>Alexander Pierce</p>
@@ -34,7 +34,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="active"><a href="index.php"><i class="fa fa-circle-o"></i> Index</a></li>
+          <li class="active"><a href="<?php echo URL; ?>index.php"><i class="fa fa-circle-o"></i> Index</a></li>
         </ul>
       </li>
         <li class="treeview">
@@ -45,9 +45,9 @@
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="user/login.php"><i class="fa fa-circle-o"></i> Login</a></li>
-            <li><a href="user/register.php"><i class="fa fa-circle-o"></i> Register</a></li>
-            <li><a href="pages/examples/invoice.html"><i class="fa fa-circle-o"></i> Listing Comeing Soon</a></li>
+            <li><a href="<?php echo URL; ?>user/login.php"><i class="fa fa-circle-o"></i> Login</a></li>
+            <li><a href="<?php echo URL; ?>user/register.php"><i class="fa fa-circle-o"></i> Register</a></li>
+            <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o"></i> Listing Comeing Soon</a></li>
           </ul>
         </li>      
       <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>

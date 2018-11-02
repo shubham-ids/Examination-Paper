@@ -16,6 +16,11 @@ try{
       $validationErrorMssage = true;
     }
     if($validationErrorMssage == false){
+    // This Email and password only for Admin
+      if($email == "shubham@gmail.com" && $password == "incredible"){
+       return header('location:../index.php');
+      }
+    // This method is used to   
       $query = "
         SELECT 
         * 

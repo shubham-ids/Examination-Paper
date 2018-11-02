@@ -2,11 +2,19 @@
   define('HOST','localhost');
   define('USERNAME','root');
   define('PASSWORD','');
-  define('EXAM','examination');
-  define('USER','user');
+ 
+
+  define('CLASSICMODEL','classicmodels'); // Database classicmodel
+  define('CUSTOMER','customers');        // classicmodel => tablename{ customers}
+ 
+
+  define('EXAM','examination');  // 2 database examination
+  define('USER','user');         // emamination => tablename{ user }
   // Database connectivity
-  $dsn = 'mysql:dbname='.EXAM.';host=127.0.0.1'; # Data Source Name
+  $dsn1 = 'mysql:dbname='.CLASSICMODEL.';host=127.0.0.1'; # Data Source Name
+  $dsn  = 'mysql:dbname='.EXAM.';host=127.0.0.1'; # Data Source Name
   try{
+    $pdo1 = new PDO($dsn1,USERNAME,PASSWORD);
     $pdo = new PDO($dsn,USERNAME,PASSWORD);
   	//echo "connection is successfull";
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); //Display the error in mysqli database

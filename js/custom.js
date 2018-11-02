@@ -1,39 +1,44 @@
-// $(document).ready(function(){
-  
-//   $('#fname').blur(function(){
-//     requireField(this , '#clientErrorMessage');
-//   });
-//   $('#fname').keyup(function(){
-//     notAllowedNumber(this , '#clientErrorMessage');
-//   });  
-//   $('#fname').keyup(function(){
-//     requireField(this , '#clientErrorMessage');
-//     notAllowedNumber(this , '#clientErrorMessage');
-//   });    
+$(document).ready(function(){
+// This method is used to checked the all element using one checkbox  
+  $('.checkAll').click(function(){
+    $('.checkItem').prop('checked', $(this).prop('checked'));
+  });
+  $('.checkItem').click(function(){
+    if( $('.checkItem:checked').length == $('.checkItem').length ){
+      $('.checkAll').prop('checked',true);  
+    }else{
+      $('.checkAll').prop('checked',false);
+    }  
+  });
 
-//  // Validation Error
-//    function requireField(input , ErrorId){
-//    	$(ErrorId).html="";
-//     if($(input).val() == ""){ 
-//       $(ErrorId).html('<p class="ErrorMessage">This field is required</p>');
-//       $(ErrorId).addClass('text-danger');
-//       return;
-//     }
-//    } 
-// /*
-// *  This Function is used to print the Error Message by not allowed Number
-// */
-//   function notAllowedNumber(input , ErrorId ){
-//   	var notAllowedCharacter = ["+","-","0","1","2","3","4","5","6","7","8","9"];
-//     $(ErrorId).html = "";
-//   	var InputValue = $(input).val();
-//   	for(var i=0; i< InputValue.length; i++){
-//  			if( notAllowedCharacter.indexOf(InputValue[i]) !== -1  ){
-// 		    $(ErrorId).html('Just filled by character : '+InputValue);       
-//     		return;
-//  			}
-// 		}
-//   	return;
-//  	}
+/*
+ *  Data delete in jquery ajax method
+ */
 
-// });
+ $(".deleteAjax").click(function(){
+  var parent     = $(this).parents("tr");
+  var del_id = $(this).attr("id");
+  var info   = 'id=' + del_id;
+  if(confirm("Are you sure you want to delete this Record ?")){
+    $.ajax({
+      type: "get",
+      url:  "?task=delete",
+      data: info,
+      beforeSend: function() {
+        $(parent).animate({'backgroundColor':'#fb6c6c' });
+      },      
+      success: function(){
+        $(parent).slideUp('slow',function() {
+          $(parent).remove();
+        });
+        alert('Record is delete successfull');
+      },
+      error: function(){
+        alert('Something is wrong !');
+      }
+    });
+  }else{
+    alert('No action taken');
+  }
+  });  
+});
