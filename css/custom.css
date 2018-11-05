@@ -1,3 +1,14 @@
 .serverErrorMessage {
   color: rgb(255,47,57);
 }
+.form-group.editGroup {
+  margin-bottom: 10px;
+  width: 100%;
+}
+.form-control.editDisableInput {
+    width: 70%;
+    font-size: 24px;
+}
+.editGroup label {
+    width: 8%;
+}

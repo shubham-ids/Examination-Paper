@@ -38,9 +38,15 @@ try{
       // This Email and password only for Admin
         if($email == "shubham@jyoti"){
           return header('location:../index.php');
-        }else{
-          $message = "Wellcome";
-        }  
+        }
+        // This method is used to user can checked the activity and then go to demo page
+        if($row['status'] == 'block'){
+          return header('location:../505.php'); 
+        }        
+        if( $row['activity'] == 'activate' ){
+          return header('Location:../demo.php');
+        }
+        $message = "<div class='form-group has-success'><label for='has-success'><i class='fa fa-check'>WellCome". $row['firstname']."</i></label></div>";
       }else{
         $message  = "Invalide email and password";
       }

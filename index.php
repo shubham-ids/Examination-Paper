@@ -1,4 +1,7 @@
-<?php include_once('header.php');  ?>
+<?php 
+  include_once('header.php');
+  include_once('sideBar.php');
+?>
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->

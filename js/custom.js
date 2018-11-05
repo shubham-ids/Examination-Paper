@@ -2,14 +2,26 @@ $(document).ready(function(){
 // This method is used to checked the all element using one checkbox  
   $('.checkAll').click(function(){
     $('.checkItem').prop('checked', $(this).prop('checked'));
+    CheckedCountNumber('.checkItem' , '.countChecked');
   });
   $('.checkItem').click(function(){
+    CheckedCountNumber('.checkItem' , '.countChecked');
     if( $('.checkItem:checked').length == $('.checkItem').length ){
       $('.checkAll').prop('checked',true);  
     }else{
       $('.checkAll').prop('checked',false);
     }  
   });
+// This function is accept the two parameter
+// This function is used to count the checkbox checked  
+// return NULL
+  function CheckedCountNumber($classname , $output){
+    var countCheckedRow = $($classname+':checked').length;
+    $(countCheckedRow) ? $($output).html(countCheckedRow) : $($output).html('');
+    if(countCheckedRow == 0){
+      $($output).html('');
+    }    
+  }
 
 /*
  *  Data delete in jquery ajax method
@@ -61,7 +73,7 @@ $(document).ready(function(){
         data:{ users : post_arr } ,
         //cache: true,
         beforeSend: function() {
-          $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' },3000);
+          $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' });
         },      
         success: function(response) {
           $.each(post_arr, function() {

@@ -2,15 +2,16 @@
   include_once('../db/connection.php');
   $message = "";
   try{
-    if(isset($_REQUEST['add'])){
-      
+    if(isset($_REQUEST['add'])){    
       $firstname = $_POST['firstname'];
       $lastname  = $_POST['lastname'];
       $username  = $_POST['username'];
       $email     = $_POST['email'];
       $password  = $_POST['password'];
-      $Cpassword = $_POST['Cpassword']; 
-   
+      $Cpassword = $_POST['Cpassword'];
+      $activity  = $_POST['activity']; 
+      
+      $status = (empty($status)) ? 'deactivate' : $status;
     // This methos is used to display the required message
       $validationErrorMessage = false;
       if(empty($firstname)){
@@ -55,25 +56,21 @@
           'username' => $username
         ] );
         $row = $selectQuery->rowCount();
-        // echo $row."<br><br>";
-        // if($row != 0){
-        //   $message = "<p class='alert alert-danger'>Username is already include!</p>";
-        //  return; 
-        // }
         if($row < 1){
           $rows = [ 
             'firstname' => $firstname,
             'lastname'  => $lastname,
             'username'  => $username,
             'email'     => $email,
-            'password'  => md5($password)
-          ];        
+            'password'  => md5($password),
+            'activity'  => $activity
+          ];      
           $query =  "
             INSERT  
             INTO ".USER."
-              (`firstname`, `lastname`, `username`,`email`,`password`) 
+              (`firstname`, `lastname`, `username`,`email`,`password`,`activity`) 
               VALUES 
-              ( :firstname, :lastname , :username , :email , :password )
+              ( :firstname, :lastname , :username , :email , :password , :activity)
             ";
           $insert = $pdo->prepare($query);
           $insert->execute( $rows );

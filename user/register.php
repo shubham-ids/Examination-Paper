@@ -14,9 +14,15 @@
      </div>
     <form  method="post">
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="firstname" id="fname" placeholder="First name">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        <div class="serverErrorMessage" id="clientErrorMessage">
+        <input 
+          type        = "text" 
+          class       = "form-control" 
+          name        = "firstname" 
+          id          = "fname"
+          value       = "<?php echo isset($_REQUEST['firstname']) ? $_REQUEST['firstname'] : ''; ?>" 
+          placeholder = "First name">
+        <span class = "glyphicon glyphicon-user form-control-feedback"></span>
+        <div class  = "serverErrorMessage" id="clientErrorMessage">
           <?php
             if(isset( $firstnameErrorMessage ) === true){
               echo $firstnameErrorMessage;
@@ -25,9 +31,15 @@
         </div>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="lastname" id="lname" placeholder="Last name">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        <div class="serverErrorMessage">
+        <input 
+          type        = "text" 
+          class       = "form-control" 
+          name        = "lastname" 
+          value       = "<?php echo isset($_REQUEST['lastname']) ? $_REQUEST['lastname'] : ''; ?>"
+          id          = "lname" 
+          placeholder = "Last name">
+        <span class = "glyphicon glyphicon-user form-control-feedback"></span>
+        <div class  = "serverErrorMessage">
           <?php
             if(isset( $lastnameErrorMessage ) === true){
               echo $lastnameErrorMessage;
@@ -36,9 +48,15 @@
         </div>
       </div>
       <div class="form-group has-feedback">
-        <input type="text" class="form-control" name="username" id="username" placeholder="User name">
-        <span class="glyphicon glyphicon-user form-control-feedback"></span>
-        <div class="serverErrorMessage">
+        <input 
+          type        = "text" 
+          class       = "form-control" 
+          name        = "username" 
+          id          = "username"
+          value       = "<?php echo isset($_REQUEST['username']) ? $_REQUEST['username'] : ''; ?>" 
+          placeholder = "User name">
+        <span class = "glyphicon glyphicon-user form-control-feedback"></span>
+        <div class  = "serverErrorMessage">
           <?php
             if(isset( $usernameErrorMessage ) === true){
               echo $usernameErrorMessage;
@@ -47,9 +65,15 @@
         </div>
       </div>            
       <div class="form-group has-feedback">
-        <input type="email" class="form-control" name="email" id="email" placeholder="Email">
-        <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
-        <div class="serverErrorMessage">
+        <input 
+          type        = "email" 
+          class       = "form-control" 
+          name        = "email"
+          value       = "<?php echo isset($_REQUEST['email']) ? $_REQUEST['email'] : ''; ?>" 
+          id          = "email" 
+          placeholder = "Email">
+        <span class = "glyphicon glyphicon-envelope form-control-feedback"></span>
+        <div class = "serverErrorMessage">
           <?php
             if(isset( $emailErrorMessage ) === true){
               echo $emailErrorMessage;
@@ -83,7 +107,7 @@
         <div class="col-xs-8">
           <div class="checkbox icheck">
             <label>
-              <input type="checkbox"> I agree to the <a href="#">terms</a>
+              <input type="checkbox" name="activity" value="activate"> I agree to the <a href="../terms-condition-page.php">terms</a>
             </label>
           </div>
         </div>
