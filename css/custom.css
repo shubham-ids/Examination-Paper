@@ -6,9 +6,13 @@
   width: 100%;
 }
 .form-control.editDisableInput {
-    width: 70%;
-    font-size: 24px;
+  width: 70%;
+  font-size: 24px;
 }
 .editGroup label {
-    width: 8%;
+  width: 8%;
+}
+.countChecked {
+  margin-left: 7px;
+  font-size: 18px;
 }

@@ -37,9 +37,19 @@
                         <select aria-controls="example1" name="multiAction" class="form-control input-sm">
                           <option value = "">Select</option>
                           <option value = "deleted"> Delete </option>
-                          <option value = "block">   block  </option>
+                          <option value = "block">   Block  </option>
+                          <?php 
+                              $fetch = $selectQuery->fetch();
+                              echo "<pre>";
+                                print_r( $fetch );
+                              echo "</pre>";
+                              if($rowStatus['status'] == 'block'){ ?>
+                              <option value = "block">unblock</option>
+                           <?php   }
+                            
+                          ?>
                         </select>
-                        <button type="button" class="btn btn-sm btn-primary btn-create" id="actionButton">Action</button>
+                        <button class="btn btn-sm btn-primary btn-create" id="">Action</button>
                       </label>
                     </div>   
                    <!-- </form>  -->             
@@ -78,7 +88,6 @@
                     <table id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                           <th style="width: 74px"><input type="checkbox" class="checkAll"><i class="countChecked"></i></th>
                           <th>Serial Number</th>
                           <th>Firstname</th>
@@ -87,26 +96,13 @@
                           <th>Email</th>
                           <th>Activity</th>
                           <th>Status</th>
+                          <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                         </tr>
                       </thead>
                       <tbody>
                       <?php 
                         foreach( $result as $row ){ ?>
                           <tr>
-                            <td align="left">
-                              <a 
-                                href  = "profile.php?task=profile&id=<?php echo $row['id']; ?>"
-                                class = "btn btn-default"
-                                title = "profile">
-                                <em class="fa fa-user"></em>
-                              </a>
-                              <a 
-                                title  = "Delete" 
-                                class  = "btn btn-danger deleteAjax"
-                                id     = "<?php echo $row['id']; ?>">
-                                <em class="fa fa-trash"></em>
-                              </a>
-                            </td>
                             <td><input type="checkbox" name="users[]" class="checkItem" value="<?php echo $row['id']; ?>"></td>
                             <td><?php echo ++$limitPosition; ?></td>
                             <td><?php echo $row['firstname']; ?></td>
@@ -114,10 +110,10 @@
                             <td><?php echo $row['username']; ?></td>
                             <td><?php echo $row['email']; ?></td>
                             <td>
-                                <?php
-                                   $activityLogo = (empty($row['activity']))    ? 'Deactivate' : $row['activity'] ;  
-                                   echo $activityLogo; 
-                                ?>
+                              <?php
+                                 $activityLogo = (empty($row['activity']))    ? 'Deactivate' : $row['activity'] ;  
+                                 echo $activityLogo; 
+                              ?>
                             </td>
                             <td>
                               <?php 
@@ -125,12 +121,25 @@
                                 echo $status;
                               ?>  
                             </td>
+                            <td align="left">
+                              <a 
+                                href  = "profile.php?task=profile&id=<?php echo $row['id']; ?>"
+                                class = "btn btn-default"
+                                title = "profile">
+                                <em class="fa fa-pencil"></em>
+                              </a>
+                              <a 
+                                title  = "Delete" 
+                                class  = "btn btn-danger deleteAjax"
+                                id     = "<?php echo $row['id']; ?>">
+                                <em class="fa fa-trash"></em>
+                              </a>
+                            </td>                            
                           </tr>
                       <?php } ?>
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                           <th><input type="checkbox" class="checkAll"><i class="countChecked"></i></th>
                           <th>Serial Number</th>
                           <th>Firstname</th>
@@ -139,6 +148,7 @@
                           <th>Email</th>
                           <th>Activity</th>
                           <th>Status</th>
+                          <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                         </tr>
                       </tfoot>
                     </table>               

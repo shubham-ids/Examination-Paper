@@ -2,9 +2,9 @@
 include_once('../db/connection.php');
 $message = "";
 try{
-  $multiDelete  = (isset($_REQUEST['multiAction'])) ? $_REQUEST['multiAction'] : '';
+  $multiAction  = (isset($_REQUEST['multiAction'])) ? $_REQUEST['multiAction'] : '';
   $searchBar    = (isset($_REQUEST['searchBar']) )  ? $_REQUEST['searchBar']   : '';
-  $userDelete   = (isset($_REQUEST['users']))       ? $_REQUEST['users']       : '';
+  $user         = (isset($_REQUEST['users']))       ? $_REQUEST['users']       : '';
   $page         = (isset($_REQUEST['page']) )       ? $_REQUEST['page']            : 1;
   
   $currentPage  = empty($page)      ? 1  : intval( $page );
@@ -17,8 +17,8 @@ try{
   $queryPart   = "";
 
 // This method is used to multiple record delete in databases    
-  if( $multiDelete == 'deleted' ){
-    foreach(  $userDelete as $id ){
+  if( $multiAction == 'deleted' ){
+    foreach(  $user as $id ){
       $query       = "DELETE FROM `".USER."` WHERE id = :id ";
       $deleteQuery = $pdo->prepare($query);
       $results     = $deleteQuery->execute(['id' => $id]);
@@ -45,8 +45,20 @@ try{
       $message = "<p class='alert alert-danger'>Your record is not delete</p>";
     }
   }
-  // This method is use to user can block the multiple users
-
+// This method is use to user can block the multiple users
+  if($multiAction == 'block'){
+    foreach( $user as $id ){
+      $query    = $pdo->prepare("UPDATE `".USER."` SET `status` = :status WHERE id = :id " );
+      $responce = $query->execute([
+        'status' => $multiAction,
+        'id'     => $id
+      ]);
+      if( $responce !== false ){
+        $message = "<p class='alert alert-success'>Multiple user are block Successfull</p>";
+      }
+    }
+  } 
+// This method is used to search of the value form database   
   if(!empty($searchBar)){
     $queryPart   = "
       WHERE
