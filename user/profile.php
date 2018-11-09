@@ -32,32 +32,68 @@
                   <div class="col-sm-12">
                     <div class="form-group editGroup">
                       <label>Firstname :</label>
-                      <input type="text" class="form-control editDisableInput" value="<?php echo $row['firstname']; ?>" >
+                      <input type="text" class="form-control editDisableInput" name="firstname" value="<?php echo $row['firstname']; ?>" >
+                      <div class = "serverErrorMessage">
+                        <?php
+                          if(isset( $firstnameErrorMessage ) === true){
+                            echo $emailErrorMessage;
+                          } 
+                        ?>
+                      </div>        
                     </div>
                     <div class="form-group editGroup">
                       <label>Lastname :</label>
-                      <input type="text" class="form-control editDisableInput" value="<?php echo $row['lastname']; ?>" >
+                      <input type="text" class="form-control editDisableInput" name="lastname" value="<?php echo $row['lastname']; ?>" >
+                      <div class = "serverErrorMessage">
+                        <?php
+                          if(isset( $lastnameErrorMessage ) === true){
+                            echo $emailErrorMessage;
+                          } 
+                        ?>
+                      </div>                       
                     </div>
                     <div class="form-group editGroup">
                       <label>Username :</label>
-                      <input type="text" class="form-control editDisableInput" value="<?php echo $row['username']; ?>" >
+                      <input type="text" class="form-control editDisableInput" name="username" value="<?php echo $row['username']; ?>" >
+                      <div class = "serverErrorMessage">
+                        <?php
+                          if(isset( $usernameErrorMessage ) === true){
+                            echo $emailErrorMessage;
+                          } 
+                        ?>
+                      </div>                       
                     </div>
                     <div class="form-group editGroup">
                       <label>Email :</label>
-                      <input type="text" class="form-control editDisableInput" value="<?php echo $row['email']; ?>" >
+                      <input type="text" class="form-control editDisableInput" name="email" value="<?php echo $row['email']; ?>" >
+                      <div class = "serverErrorMessage">
+                        <?php
+                          if(isset( $emailErrorMessage ) === true){
+                            echo $emailErrorMessage;
+                          } 
+                        ?>
+                      </div>                       
                     </div>  
                     <div class="form-group editGroup">
                       <label>Activity Logo :</label>
-                      <input type="text" class="form-control editDisableInput" value="<?php echo $activityLogo ?>" >
+                      <input type="text" class="form-control editDisableInput" value="<?php echo $activityLogo ?>" disabled="">
                     </div>  
                     <div class="form-group editGroup">
                       <label>Status Logo :</label>
-                      <input type="text" class="form-control editDisableInput" value="<?php echo $status; ?>" >
-                    </div>                                      
+                      <input type="text" class="form-control editDisableInput" value="<?php echo $row['status']; ?>" disabled="">
+                    </div>    
+                    <div class="form-group editGroup">
+                      <label> Block User</label>
+                      <?php
+                        if( $row['status'] == 'block' ){
+                          $check = 'checked';
+                        } 
+                      ?>
+                      <input type="checkbox" id="statusUser" name="status" value="block" <?php echo isset($check) ? $check :''; ?> > 
+                      <p class="userstatus"></p>
+                    </div>                                  
                     <div class="form-group ">
-                      <label>BLock / Unblock User:</label>
-                      <p class="">Click the submit button then user is blocked And click again submit button then user is unblocked.</p>
-                      <button class="btn btn-block btn-primary" name="UserBlock">Submit</button> 
+                      <button class="btn btn-block btn-primary" name="edit">Submit</button> 
                     </div>                                 
                   </div>
                 </div>

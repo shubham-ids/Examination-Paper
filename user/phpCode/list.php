@@ -5,16 +5,23 @@ try{
   $multiAction  = (isset($_REQUEST['multiAction'])) ? $_REQUEST['multiAction'] : '';
   $searchBar    = (isset($_REQUEST['searchBar']) )  ? $_REQUEST['searchBar']   : '';
   $user         = (isset($_REQUEST['users']))       ? $_REQUEST['users']       : '';
-  $page         = (isset($_REQUEST['page']) )       ? $_REQUEST['page']            : 1;
-  
+  $page         = (isset($_REQUEST['page']) )       ? $_REQUEST['page']        : 1;
+  $orderBy      = isset($_REQUEST['order-by'])      ? $_REQUEST['order-by']    : "";
+  $order        = isset($_REQUEST['order'])         ? $_REQUEST['order']       : 'DESC';
+  $entries      = isset($_REQUEST['showEntries'])   ? $_REQUEST['showEntries'] : '';
+
   $currentPage  = empty($page)      ? 1  : intval( $page );
   $searchBar    = empty($searchBar) ? '' : $searchBar;
-  $currentPage  = max($currentPage, 1);
+  $entries      = empty($entries)   ? 10 : $entries;
+  $currentPage  =($currentPage <= 0) ? 1  : $currentPage;
   
-  $record_perpage = 10;
-
-  $limitPosition = ( $currentPage - 1) * $record_perpage;
-  $queryPart   = "";
+  $record_perpage = $entries;
+  $queryPart      = "";
+  $orderPart      = "";
+  
+  $record_perpage = intval($entries);
+  $limitPosition  = ( $currentPage - 1) * $record_perpage;
+  $queryPart      = "";
 
 // This method is used to multiple record delete in databases    
   if( $multiAction == 'deleted' ){
@@ -30,6 +37,32 @@ try{
     }        
     $message =  "<p class='alert alert-danger'>Please select atleast one checkbox</p>";
   }
+// This method is use to Admin can block the multiple users
+  if($multiAction == 'block'){
+    foreach( $user as $id ){
+      $query    = $pdo->prepare("UPDATE `".USER."` SET `status` = :status WHERE id = :id " );
+      $responce = $query->execute([
+        'status' => $multiAction,
+        'id'     => $id
+      ]);
+      if( $responce !== false ){
+        $message = "<p class='alert alert-success'>Multiple user are block Successfull</p>";
+      }
+    }
+  }
+// This method is use to Admin can Unblock the multiple users
+  if($multiAction == 'unblock'){
+    foreach( $user as $id ){
+      $query    = $pdo->prepare("UPDATE `".USER."` SET `status` = :status WHERE id = :id " );
+      $responce = $query->execute([
+        'status' => $multiAction,
+        'id'     => $id
+      ]);
+      if( $responce !== false ){
+        $message = "<p class='alert alert-success'>Multiple user are Unblock Successfull</p>";
+      }
+    }
+  }   
 // This method is used to delete the row in database using PDO 
   if( isset($_REQUEST['task']) && $_REQUEST['task'] == 'delete' ){
     $id = [
@@ -45,19 +78,6 @@ try{
       $message = "<p class='alert alert-danger'>Your record is not delete</p>";
     }
   }
-// This method is use to user can block the multiple users
-  if($multiAction == 'block'){
-    foreach( $user as $id ){
-      $query    = $pdo->prepare("UPDATE `".USER."` SET `status` = :status WHERE id = :id " );
-      $responce = $query->execute([
-        'status' => $multiAction,
-        'id'     => $id
-      ]);
-      if( $responce !== false ){
-        $message = "<p class='alert alert-success'>Multiple user are block Successfull</p>";
-      }
-    }
-  } 
 // This method is used to search of the value form database   
   if(!empty($searchBar)){
     $queryPart   = "
@@ -66,7 +86,11 @@ try{
       OR
         `email`     LIKE :searchBar
     ";
-  }  
+  } 
+// This method is used to Ascending / Descending Order  
+  if(!empty($orderBy)){
+    $orderPart = " ORDER BY `$orderBy` $order ";
+  } 
   $query = "
     SELECT
     SQL_CALC_FOUND_ROWS
@@ -74,6 +98,7 @@ try{
     FROM
       `".USER."`
       {$queryPart}
+      {$orderPart}
     LIMIT :limitPosition , :record_perpage 
     ";  
 
@@ -95,7 +120,7 @@ try{
   $totalpages = ceil( $response / $record_perpage );
   $result     = $selectQuery->fetchAll();
 
-  if($currentPage > $totalpages) {
+  if($totalpages != 0 && $currentPage > $totalpages) {
   
     // This method is convert the Querystring to array using parse_str
     // QUERY_STRING are like url:?searchBar=Rahul&page=1 to 2

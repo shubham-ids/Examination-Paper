@@ -214,6 +214,9 @@
 </script>
 <!-- Bootstrap 3.3.7 -->
 <script src="<?php echo URL; ?>bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+<!-- DataTables -->
+<script src="<?php echo URL; ?>bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="<?php echo URL; ?>bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
 <script src="<?php echo URL; ?>plugins/iCheck/icheck.min.js"></script>
 <!-- Morris.js charts -->
 <script src="<?php echo URL; ?>bower_components/raphael/raphael.min.js"></script>
@@ -242,7 +245,7 @@
 <script src="<?php echo URL; ?>dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo URL; ?>dist/js/demo.js"></script>
-<script>
+<!-- <script>
   $(function () {
     $('#example1').DataTable()
     $('#example2').DataTable({
@@ -254,6 +257,6 @@
       'autoWidth'   : false
     })
   })
-</script>
+</script> -->
 </body>
 </html>

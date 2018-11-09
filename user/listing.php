@@ -25,44 +25,37 @@
             <div class="box-header">
               <h3 class="box-title">Users of records</h3>
             </div>
-            <?php echo $message; ?>
+            <div id="outputMessage">
+              <?php echo $message; ?>
+            </div> 
             <!-- /.box-header -->
             <div class="box-body" >
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">                      
                   <div class="col-sm-8">
                   <!--  <form> -->
-                    <div class="dataTables_length col-sm-4" id="example1_length">
-                      <label>
-                        <select aria-controls="example1" name="multiAction" class="form-control input-sm">
-                          <option value = "">Select</option>
-                          <option value = "deleted"> Delete </option>
-                          <option value = "block">   Block  </option>
-                          <?php 
-                              $fetch = $selectQuery->fetch();
-                              echo "<pre>";
-                                print_r( $fetch );
-                              echo "</pre>";
-                              if($rowStatus['status'] == 'block'){ ?>
-                              <option value = "block">unblock</option>
-                           <?php   }
-                            
-                          ?>
+                    <div class="dataTables_length col-sm-2" id="example1_length">
+                      <label>Action :
+                        <select aria-controls="example1" name="multiAction" class="form-control input-sm bulkaction">
+                          <option value="">Select</option>
+                          <option value="deleted"> Delete </option>
+                          <option value="block">   Block  </option>
+                          <option value="unblock">   Unblock</option>
                         </select>
-                        <button class="btn btn-sm btn-primary btn-create" id="">Action</button>
                       </label>
                     </div>   
                    <!-- </form>  -->             
-<!--                     <div class="dataTables_length col-sm-4" id="example1_length">
+                    <div class="dataTables_length col-sm-4" id="example1_length">
                       <label>Show 
-                        <select name="example1_length" aria-controls="example1" class="form-control input-sm">
-                          <option value="10">10</option>
-                          <option value="25">25</option>
-                          <option value="50">50</option>
-                          <option value="100">100</option>
+                        <select name="showEntries" aria-controls="example1" class="form-control input-sm">
+                          <!--<option disabled=""> Select entries <?php echo $entries; ?></option>-->
+                           <option value="10" <?php echo ($record_perpage == '10') ? "selected='selected'" : "" ; ?>>10</option>
+                          <option value="15"  <?php echo ($record_perpage == '15') ? "selected='selected'" : "" ; ?>>15</option>
+                          <option value="25"  <?php echo ($record_perpage == '25') ? "selected='selected'" : "" ; ?>>25</option>
                         </select> entries
+                        <button class="btn btn-sm btn-primary btn-create" id="actionButton">Action</button>
                       </label>
-                    </div> -->
+                    </div>
                   </div>
                   <div class="col-sm-4">
                     <div id="example1_filter" class="dataTables_filter">
@@ -90,16 +83,58 @@
                         <tr>
                           <th style="width: 74px"><input type="checkbox" class="checkAll"><i class="countChecked"></i></th>
                           <th>Serial Number</th>
-                          <th>Firstname</th>
-                          <th>Lastname</th>
-                          <th>Username</th>
-                          <th>Email</th>
+                          <th>
+                            <a 
+                              href="?order-by=firstname&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $currentPage; ?>"
+                              class="orderLink">
+                              First Name
+                            </a>
+                            <i class="fa fa-sort-amount-<?php echo $order ?> order"></i>
+                          </th>
+                          <th>
+                            <a 
+                              href="?order-by=lastname&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $currentPage; ?>"
+                              class="orderLink">
+                              last Name
+                            </a>
+                            <i class="fa fa-sort-amount-<?php echo $order ?> order"></i>
+                          </th>
+                          <th>
+                            <a 
+                              href="?order-by=username&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $currentPage; ?>"
+                              class="orderLink">
+                              User Name
+                            </a>
+                            <i class="fa fa-sort-amount-<?php echo $order ?> order"></i>
+                          </th>
+                          <th>
+                            <a 
+                              href="?order-by=email&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $currentPage; ?>"
+                              class="orderLink">
+                              Email
+                            </a>
+                            <i class="fa fa-sort-amount-<?php echo $order ?> order"></i>
+                          </th>
                           <th>Activity</th>
                           <th>Status</th>
                           <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                         </tr>
                       </thead>
                       <tbody>
+                        <?php
+                          if(!empty($searchBar)){
+                            if($response == "0"){
+                              $message = "<p class='text-red'>No matching records found</p>";                            
+                        ?>
+                        <tr class="odd">
+                          <td class="dataTables_empty text-center" colspan="9" valign="top">
+                            <?php echo $message; ?>
+                          </td>
+                        </tr>
+                        <?php 
+                          }
+                            }   
+                        ?>
                       <?php 
                         foreach( $result as $row ){ ?>
                           <tr>
@@ -115,7 +150,7 @@
                                  echo $activityLogo; 
                               ?>
                             </td>
-                            <td>
+                            <td class="statusAction">
                               <?php 
                                 $status = empty($row['status']) ? 'unblock' : $row['status']; 
                                 echo $status;
@@ -171,7 +206,9 @@
                         $linkOnload = ($currentPage == 1)? '#' : '';
                       ?>
                         <li class="<?php echo $className; ?>">
-                          <a href="?searchBar=<?php echo $searchBar; ?>&multiAction=&page=<?php echo $previous.$linkOnload;?> ">Previous</a>
+                          <a 
+                            href="?searchBar=<?php echo $searchBar; ?>&multiAction=&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $previous.$linkOnload;?> ">
+                            Previous</a>
                         </li>
                      <?php }
                         for($j=1; $j <= $totalpages; $j++){ 
@@ -179,17 +216,20 @@
                           $linkOnload = ($j == $currentPage)? '#' : '';
                        ?>
                       <li class="<?php echo $className; ?>">
-                        <a href="?searchBar=<?php echo $searchBar; ?>&multiAction=&page=<?php echo $j.$linkOnload; ?>"><?php echo $j; ?></a>
+                        <a href="?searchBar=<?php echo $searchBar; ?>&multiAction=&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $j.$linkOnload; ?>"><?php echo $j; ?></a>
                       </li>
                       <?php } ?>
                       <?php  
                         if( $currentPage ){
-                          $next = $currentPage+1; 
+                          $next       = $currentPage+1; 
+                          $next       = ($response == 0)?'disabled':'';
                           $className  = ($currentPage == $totalpages)? 'disabled' : '';
+                          $className  = ($response == 0)?'disabled':'';
                           $linkOnload = ($currentPage == $totalpages)? '#' : '';
                           ?>
                           <li class="<?php echo $className; ?>">
-                            <a href="?searchBar=<?php echo $searchBar; ?>&multiAction=&page=<?php echo $next.$linkOnload;?> ">Next</a>
+                            <a 
+                              href="?searchBar=<?php echo $searchBar; ?>&multiAction=&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $next.$linkOnload;?>">Next</a>
                           </li>
                        <?php }  ?>
                       </ul>

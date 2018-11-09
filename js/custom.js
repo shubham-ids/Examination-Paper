@@ -22,13 +22,26 @@ $(document).ready(function(){
       $($output).html('');
     }    
   }
-
+// This method is used to display the status.
+// Admin can checked the checkbox value then diaplay the status in user is block
+// Else admin can unchecked the value then display the status in user is unblock
+  $('#statusUser').click(function(){
+    var Userchecked = $('#statusUser').prop('checked');
+    if(Userchecked){
+      $('.userstatus').html('This person is Blocked' );
+      $('.userstatus').addClass('text-light-blue');
+    }else{
+      $('.userstatus').html('This person is Unblocked' );
+      $('.userstatus').addClass('text-light-blue');
+    }
+    //$(Userchecked) ? $('.userstatus').html('This person is Blocked' ) : $('.userstatus').html('This person is Unblocked' );
+  });
 /*
  *  Data delete in jquery ajax method
  */
 
  $(".deleteAjax").click(function(){
-  var parent     = $(this).parents("tr");
+  var parent = $(this).parents("tr");
   var del_id = $(this).attr("id");
   var info   = 'id=' + del_id;
   if(confirm("Are you sure you want to delete this Record ?")){
@@ -59,37 +72,99 @@ $(document).ready(function(){
  */
    $('#actionButton').click( function(){
     var post_arr = [];
-    var message  = "Are you sure you want to delete this multiple Records !";
-    if( $('.checkItem:checked').length == '' ){
-       return alert('Please select atleast one checkbox');
-    }
-    $('.checkItem:checked').each(function(){        
-      post_arr.push( $(this).val() );
+
+  // This method is used to get the drop down select value
+    var bulkAction = [];
+    $.each($(".bulkaction option:selected"), function(){            
+        bulkAction.push($(this).val());
     });
-    if(confirm(message)){
-      $.ajax({
+    //alert("You have selected the action - " + bulkAction); 
+
+  // This method is used to delete the multiple user using JQuery ajax
+    if( bulkAction == 'deleted' ){
+      var message  = "Are you sure you want to delete this multiple Records !";
+      if( $('.checkItem:checked').length == '' ){
+       alert('Please select atleast one checkbox');
+       return false;
+      }
+      $('.checkItem:checked').each(function(){        
+        post_arr.push( $(this).val() );
+      });
+      if(confirm(message)){
+        $.ajax({
+          type: "get",
+          url: "?multiAction=deleted",
+          data:{ users : post_arr } ,
+          //cache: true,
+          beforeSend: function() {
+            $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' });
+          },      
+          success: function(response) {
+            $.each(post_arr, function() {
+              $(parent).slideUp(3000,function() {
+                $('.checkItem:checked').parents("tr").remove();
+              });
+            });
+            alert('Data delete successfull');
+          },
+          error: function(){
+            alert('Your records are not delete');
+          }
+        });
+      }else{
+        alert('No action taken');
+      }
+      return false;
+    } 
+  // This method is used to block of the multiple user in one time
+    if(bulkAction == 'block'){
+      var message  = "Are you sure you want to "+bulkAction+" this users !";
+    }
+  // This method is used to unblock of the multiplr user in one time  
+    if(bulkAction == 'unblock'){
+      var message  = "Are you sure you want to "+bulkAction+" this users !";
+    }
+    if(bulkAction !== ''){
+    // This method is used to checked the blank checked checkbox field   
+      if( $('.checkItem:checked').length == '' ){
+         alert('Please select atleast one checkbox in one time');
+         return false;
+      } 
+    //  This method is used to assigen of the checkbox checked value in array variable
+      $('.checkItem:checked').each(function(){        
+        post_arr.push( $(this).val() );
+      });
+    // This method is used to check the equal of the value like : block == block / unblock == unblock
+    // In wich new function used in trim 
+    // Trim function id used to erace of the extra spacing   
+      if($.trim($('.checkItem:checked').parents("tr").children("td.statusAction").text()) == bulkAction){
+        $('#outputMessage').html("<h4 class='alert alert-danger'><i class='icon fa fa-ban'></i>User is already "+bulkAction+".</h4>");
+        return false;
+      }
+      if(confirm(message)){
+        $.ajax({
         type: "get",
-        url: "?multiAction=deleted",
+        url: "?multiAction="+bulkAction,
         data:{ users : post_arr } ,
-        //cache: true,
-        beforeSend: function() {
-          $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' });
-        },      
+        // beforeSend: function() {
+        //   $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' });
+        // },      
         success: function(response) {
           $.each(post_arr, function() {
-            $(parent).slideUp(3000,function() {
-              $('.checkItem:checked').parents("tr").remove();
-            });
+           // $('.checkItem:checked').parents("tr").animate({'backgroundColor':'rgba(255,0,0,0.2)' });
+            $('.checkItem:checked').parents("tr").children("td.statusAction").html(bulkAction);
+            $('.checkItem:checked').prop('checked',false);
           });
-          alert('Data delete successfull');
+          alert('Users '+bulkAction+' are successfull');
         },
         error: function(){
-          alert('Your records are not delete');
+          alert('Users are '+bulkAction+' not success full');
         }
-      });
-    }else{
-      alert('No action taken');
-    }
+      });      
+      }
+
+      return false
+    }   
     return false;
   });
 
