@@ -37,24 +37,57 @@
           <li class="active"><a href="<?php echo URL; ?>index.php"><i class="fa fa-circle-o"></i> Index</a></li>
         </ul>
       </li>
-        <li class="treeview">
-          <a href="#">
-            <i class="fa fa-folder"></i> <span>User</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo URL; ?>user/login.php"><i class="fa fa-circle-o">    </i> Login        </a></li>
-            <li><a href="<?php echo URL; ?>user/register.php"><i class="fa fa-circle-o"> </i> Register     </a></li>
-            <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i> Users Profile</a></li>
-          </ul>
-        </li>      
-      <li><a href="https://adminlte.io/docs"><i class="fa fa-book"></i> <span>Documentation</span></a></li>
       <li class="header">LABELS</li>
-      <li><a href="#"><i class="fa fa-circle-o text-red"></i> <span>Important</span></a></li>
-      <li><a href="#"><i class="fa fa-circle-o text-yellow"></i> <span>Warning</span></a></li>
-      <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-users"></i> <span>Users</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<?php echo URL; ?>user/login.php"><i class="fa fa-circle-o">    </i> Login        </a></li>
+          <li><a href="<?php echo URL; ?>user/register.php"><i class="fa fa-circle-o"> </i> Register     </a></li>
+          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i> Users Profile</a></li>
+        </ul>
+      </li> 
+      <li class="header">LABELS</li>
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-folder"></i> <span>Class</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<?php echo URL; ?>class/register.php"><i class="fa fa-circle-o"> </i>Add Class</a></li>
+          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i>All Classes</a></li>
+        </ul>
+      </li>       
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-book"></i> <span>Subject</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<?php echo URL; ?>subject/register.php"><i class="fa fa-circle-o"> </i>Add Subject</a></li>
+          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i>All Subjects</a></li>
+        </ul>
+      </li>    
+      <li class="treeview">
+        <a href="#">
+          <i class="fa fa-book"></i> <span>Chapter</span>
+          <span class="pull-right-container">
+            <i class="fa fa-angle-left pull-right"></i>
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="<?php echo URL; ?>chapter/register.php"><i class="fa fa-circle-o"> </i>add Chapter</a></li>
+          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i>All Chapters</a></li>
+        </ul>
+      </li>               
     </ul>
   </section>
   <!-- /.sidebar -->
