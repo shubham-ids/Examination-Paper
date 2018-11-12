@@ -16,7 +16,7 @@ try{
     $title         = $_REQUEST['title'];
     $description   = $_REQUEST['description'];
     $limitMarks    = $_REQUEST['limit-marks'];
-    $subjectClass  = $_REQUEST['subject']; 
+    $subjectClass  = $_REQUEST['classSubject']; 
     $validationErrorMessage = false;
     if(empty($title) ){
       $titleErrorMessage      = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
@@ -63,7 +63,7 @@ try{
             `title`       = :title,
             `description` = :description,
             `limit-marks` = :limitMarks,
-            `subject`     = :classSubject
+            `classSubject`= :classSubject
             WHERE 
             `id` = :id
           ";    

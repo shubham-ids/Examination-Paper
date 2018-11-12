@@ -105,40 +105,43 @@
                             }   
                         ?>
                       <?php 
-                        foreach( $result as $row ){ ?>
-                          <tr>
-                            <td><input type="checkbox" name="users[]" class="checkItem" value="<?php echo $row['id']; ?>"></td>
-                            <td><?php echo ++$limitPosition; ?></td>
-                            <td><?php echo $row['title']; ?></td>
-                            <td>
-                              <?php 
-                                $string = $row['description'];
-                                echo mb_strimwidth($string, 0, 40, ".....");
-                                // if( strlen($string) <=40){
-                                //   echo $string;
-                                // }else{
-                                //   echo substr($string, 0, 50) . '...';
-                                // } 
-                              ?>    
-                            </td>
-                            <td><?php echo $row['subject']; ?></td>
-                            <td><?php echo $row['limit-marks']; ?></td>
-                            <td><?php echo $row['create-on']; ?></td>
-                            <td align="left">
-                              <a 
-                                href  = "update.php?task=edit&id=<?php echo $row['id']; ?>"
-                                class = "btn btn-default"
-                                title = "profile">
-                                <em class="fa fa-pencil"></em>
-                              </a>
-                              <a 
-                                title  = "Delete" 
-                                class  = "btn btn-danger deleteAjax"
-                                id     = "<?php echo $row['id']; ?>">
-                                <em class="fa fa-trash"></em>
-                              </a>
-                            </td>                            
-                          </tr>
+                        foreach( $result as $row ){ 
+                        $query = "SELECT * FROM `subject` WHERE `id` =".$row['classSubject'];
+                        $select = $pdo->query($query);
+                        $fetch = $select->fetch();
+                      ?>
+                        <tr>
+                          <td><input type="checkbox" name="users[]" class="checkItem" value="<?php echo $row['id']; ?>"></td>
+                          <td><?php echo ++$limitPosition; ?></td>
+                          <td><?php echo $row['title']; ?></td>
+                          <td>
+                            <?php 
+                              $string = $row['description'];
+                              echo mb_strimwidth($string, 0, 40, ".....");
+                            ?>    
+                          </td>
+                          <td>
+                            <?php 
+                              echo ($row['classSubject'] == $fetch['id']) ? $fetch['title'] : $row['subject'];
+                            ?>
+                          </td>
+                          <td><?php echo $row['limit-marks']; ?></td>
+                          <td><?php echo $row['create-on']; ?></td>
+                          <td align="left">
+                            <a 
+                              href  = "update.php?task=edit&id=<?php echo $row['id']; ?>"
+                              class = "btn btn-default"
+                              title = "profile">
+                              <em class="fa fa-pencil"></em>
+                            </a>
+                            <a 
+                              title  = "Delete" 
+                              class  = "btn btn-danger deleteAjax"
+                              id     = "<?php echo $row['id']; ?>">
+                              <em class="fa fa-trash"></em>
+                            </a>
+                          </td>                            
+                        </tr>
                       <?php } ?>
                       </tbody>
                       <tfoot>

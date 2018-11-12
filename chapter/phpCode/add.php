@@ -7,7 +7,7 @@
       $title         = $_REQUEST['title'];
       $description   = $_REQUEST['description'];
       $limitMarks    = $_REQUEST['limit-marks'];
-      $subjectClass  = $_REQUEST['subject']; 
+      $subjectClass  = $_REQUEST['classSubject']; 
       $validationErrorMessage = false;
       if(empty($title) ){
         $titleErrorMessage      = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
@@ -41,7 +41,7 @@
             INSERT 
             INTO
               `".CHAPTER."` 
-              (`title`,`description`,`limit-marks`,`subject`)
+              (`title`,`description`,`limit-marks`,`classSubject`)
             VALUES
             (:title , :description  , :limitMarks, :classSubject)
           ";

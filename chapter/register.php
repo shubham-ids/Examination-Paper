@@ -21,7 +21,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">General :</h3>
+              <h3 class="box-title">Add of the new chapter using a subject</h3>
             </div>
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -67,12 +67,15 @@
                     </div>  
                     <div class="form-group editGroup">
                       <label>Select Subject :</label>
-                      <select class="form-control" name="subject">
+                      <select class="form-control" name="classSubject">
                         <option value="">Subject</option>
                         <?php
-                          $selectQuery = $pdo->query("SELECT * FROM ".SUBJECT); 
+                          $subjectClass = (empty($subjectClass)) ? '' : $subjectClass;
+                          $selectQuery = $pdo->query( "SELECT `class`.* , `subject`.* FROM `class` , `subject` WHERE `class`.id = `subject`.classSubject");
                           while($fetch = $selectQuery->fetch() ){ ?>
-                            <option value="<?php echo $fetch['title']; ?>"><?php echo $fetch['title'] ."(". $fetch['classSubject'].")"; ?></option>
+                            <option value="<?php echo $fetch['id']; ?>" <?php echo ($fetch['id'] == $subjectClass) ? " selected='selected' " : ''; ?>>
+                              <?php echo $fetch['title'] ."(". $fetch[1].")"; ?>
+                            </option>
                         <?php } ?>
                       </select>
                       <?php
