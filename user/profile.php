@@ -105,9 +105,8 @@
         <!-- col-xs-12 -->
         </div>
       <!-- row -->
-      </div>
+      </section>
+    </div>
     <!-- content -->
-    </section>
-  </div>
-</form>
+  </form>
 <?php include_once('../footer.php'); ?>

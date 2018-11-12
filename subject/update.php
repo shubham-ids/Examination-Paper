@@ -1,5 +1,5 @@
 <?php 
-  include_once('phpCode/add.php');
+  include_once('phpCode/edit.php');
   include_once('../header.php');
   include_once('../sideBar.php'); 
 ?>
@@ -9,11 +9,13 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <small>Add Subject </small>
+        Edit subject
+        <small><a href="listing.php">Back Page</a></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">Add Subject</li>
+        <li><a href="listing.php">All Subjects</a></li>
+        <li class="active">EDit Subject</li>
       </ol>
     </section>
     <section class="content">
@@ -21,7 +23,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Add of the class</h3>
+              <h3 class="box-title"></h3>
             </div>
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
@@ -35,7 +37,7 @@
                         class="form-control editDisableInput" 
                         name="title" 
                         placeholder="Enter Subject Name" 
-                        value="<?php echo empty($title) ? '' : $title; ?>" >
+                        value="<?php echo $row['title']; ?>" >
                       <?php
                         if(isset( $titleErrorMessage ) === true){
                           echo $titleErrorMessage;
@@ -44,7 +46,7 @@
                     </div>
                     <div class="form-group editGroup">
                       <label>Description :</label>
-                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo empty($description) ? '' : $description; ?></textarea>
+                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo $row['description']; ?></textarea>
                       <?php
                         if(isset( $descriptionErrorMessage ) === true){
                           echo $descriptionErrorMessage;
@@ -58,7 +60,7 @@
                         class="form-control editDisableInput" 
                         name="examination-time" 
                         placeholder="Enter Eamination time" 
-                        value="<?php echo empty($ExamTime) ? '' : $ExamTime; ?>" >
+                        value="<?php echo $row['examination-time']; ?>" >
                       <?php
                         if(isset( $examTimeErrorMessage ) === true){
                           echo $examTimeErrorMessage;
@@ -72,7 +74,7 @@
                         class="form-control " 
                         name="prectical-no" 
                         placeholder="Enter prectical Number"   
-                        value="<?php echo empty($precticalNo) ? '' : $precticalNo; ?>" >
+                        value="<?php echo $row['prectical-no']; ?>" >
                         <?php
                           if(isset( $precticalErrorMessage ) === true){
                             echo $precticalErrorMessage;
@@ -83,7 +85,7 @@
                         class="form-control " 
                         name="theoretical-no" 
                         placeholder="Enter Theoretical Number" 
-                        value="<?php echo empty($theoreticalNo) ? '' : $theoreticalNo; ?>" >
+                        value="<?php echo $row['theoretical-no']; ?>" >
                         <?php
                           if(isset( $theoreticalErrorMessage ) === true){
                             echo $theoreticalErrorMessage;
@@ -93,14 +95,15 @@
                     <div class="form-group editGroup">
                       <label>Select Class :</label>
                       <select class="form-control" name="classSubject">
-                        <option value="">Select</option>
+                        <option value="">option 1</option>
                         <?php
-                          $subjectClass = (empty($subjectClass)) ? '' : $subjectClass;
-                          $selectQuery  =  $pdo->query("SELECT * FROM ".CLASSES); 
-                          while( $fetch = $selectQuery->fetch() ){ 
+                          //$subjectClass = (empty($subjectClass)) ? '' : $subjectClass;
+                          $selectQuery = $pdo->query("SELECT * FROM ".CLASSES); 
+                          $select ="";
+                          while($fetch = $selectQuery->fetch() ){
                         ?>
-                            <option value="<?php echo $fetch['id']; ?>" <?php echo ($fetch['id'] == $subjectClass) ? " selected='selected' " : ''; ?> >
-                                <?php echo $fetch['title']; ?>                
+                            <option value="<?php echo $fetch['id']; ?>" <?php echo ($fetch['id'] == $row['classSubject']) ? " selected='selected' " : ''; ?> >
+                              <?php echo $fetch['title']; ?>
                             </option>
                         <?php } ?>
                       </select>
@@ -111,7 +114,7 @@
                       ?>                   
                     </div>                                                                         
                     <div class="form-group ">
-                      <button class="btn btn-block btn-primary" name="add">Submit</button> 
+                      <button class="btn btn-block btn-primary" name="edit">Submit</button> 
                     </div>                                 
                   </div>
                 </div>

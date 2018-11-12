@@ -1,5 +1,5 @@
 <?php 
-  include_once('phpCode/add.php');
+  include_once('phpCode/edit.php');
   include_once('../header.php');
   include_once('../sideBar.php'); 
 ?>
@@ -9,10 +9,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        <small>Add Class </small>
+        Edit Class
+        <small><a href="listing.php">Back page</a></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>index.php"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="listing.php">All Classes</a></li>
         <li class="active">Add Class</li>
       </ol>
     </section>
@@ -21,18 +23,13 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">General :</h3>
+              <h3 class="box-title"></h3>
             </div>
             <div class="box-body">
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">                      
                   <div class="col-sm-12">
-                  <?php
-                    if(isset( $ErrorMessage ) === true){
-                      echo $ErrorMessage;
-                    } 
-                    echo $message;
-                  ?>
+                    <?php echo $message; ?>
                     <div class="form-group editGroup">
                       <label>Class Name :</label>
                       <input 
@@ -40,11 +37,21 @@
                         class="form-control editDisableInput"
                         name="title" 
                         placeholder="Enter Class Name" 
-                        value="<?php echo empty($title) ? '' : $title; ?>" >  
+                        value="<?php echo $row['title']; ?>" >
+                        <?php
+                          if(isset( $titleErrorMessage ) == true){
+                            echo $titleErrorMessage;
+                          } 
+                        ?>  
                     </div>
                     <div class="form-group editGroup">
                       <label>Description :</label>
-                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo empty($description) ? '' : $description; ?></textarea>                     
+                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo $row['description'];; ?></textarea>  
+                      <?php
+                        if(isset( $descriptionErrorMessage ) == true){
+                          echo $descriptionErrorMessage;
+                        } 
+                      ?>                                          
                     </div>
                     <div class="form-group editGroup">
                       <label>Duration :</label>
@@ -53,10 +60,15 @@
                         class="form-control editDisableInput" 
                         name="duration" 
                         placeholder="Enter Duration" 
-                        value="<?php echo empty($duration) ? '' : $duration; ?>" >                     
+                        value="<?php echo $row['duration']; ?>" >  
+                        <?php
+                          if(isset( $durationErrorMessage ) == true){
+                            echo $durationErrorMessage;
+                          } 
+                        ?>                                            
                     </div>                                  
                     <div class="form-group ">
-                      <button class="btn btn-block btn-primary" name="add">Submit</button> 
+                      <button class="btn btn-block btn-primary" name="edit">Submit</button> 
                     </div>                                 
                   </div>
                 </div>

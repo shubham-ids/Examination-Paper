@@ -61,9 +61,8 @@
         <!-- col-xs-12 -->
         </div>
       <!-- row -->
+       </section>
       </div>
     <!-- content -->
-    </section>
-  </div>
 </form>
 <?php include_once('../footer.php'); ?>

@@ -61,7 +61,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="<?php echo URL; ?>class/register.php"><i class="fa fa-circle-o"> </i>Add Class</a></li>
-          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i>All Classes</a></li>
+          <li><a href="<?php echo URL; ?>class/listing.php"><i class="fa fa-circle-o">  </i>All Classes</a></li>
         </ul>
       </li>       
       <li class="treeview">
@@ -73,7 +73,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="<?php echo URL; ?>subject/register.php"><i class="fa fa-circle-o"> </i>Add Subject</a></li>
-          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i>All Subjects</a></li>
+          <li><a href="<?php echo URL; ?>subject/listing.php"><i class="fa fa-circle-o">  </i>All Subjects</a></li>
         </ul>
       </li>    
       <li class="treeview">
@@ -84,8 +84,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="<?php echo URL; ?>chapter/register.php"><i class="fa fa-circle-o"> </i>add Chapter</a></li>
-          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i>All Chapters</a></li>
+          <li><a href="<?php echo URL; ?>chapter/register.php"><i class="fa fa-circle-o"> </i>Add Chapter</a></li>
+          <li><a href="<?php echo URL; ?>chapter/listing.php"><i class="fa fa-circle-o">  </i>All Chapters</a></li>
         </ul>
       </li>               
     </ul>

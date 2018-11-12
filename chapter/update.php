@@ -1,5 +1,5 @@
 <?php 
-  include_once('phpCode/add.php');
+  include_once('phpCode/edit.php');
   include_once('../header.php');
   include_once('../sideBar.php'); 
 ?>
@@ -35,7 +35,7 @@
                         class="form-control editDisableInput" 
                         name="title" 
                         placeholder="Enter Chapter Name" 
-                        value="<?php echo empty($title) ? '' : $title; ?>" >
+                        value="<?php echo $row['title']; ?>" >
                       <?php
                         if(isset( $titleErrorMessage ) === true){
                           echo $titleErrorMessage;
@@ -44,7 +44,7 @@
                     </div>
                     <div class="form-group editGroup">
                       <label>Description :</label>
-                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo empty($description) ? '' : $description; ?></textarea>
+                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo $row['description']; ?></textarea>
                       <?php
                         if(isset( $descriptionErrorMessage ) === true){
                           echo $descriptionErrorMessage;
@@ -58,7 +58,7 @@
                         class="form-control " 
                         name="limit-marks" 
                         placeholder="Enter prectical Number" 
-                        value="<?php echo empty($limitMarks) ? '' : $limitMarks; ?>" >
+                        value="<?php echo $row['limit-marks']; ?>" >
                       <?php
                         if(isset( $limitMarkErrorMessage ) === true){
                           echo $limitMarkErrorMessage;
@@ -72,7 +72,7 @@
                         <?php
                           $selectQuery = $pdo->query("SELECT * FROM ".SUBJECT); 
                           while($fetch = $selectQuery->fetch() ){ ?>
-                            <option value="<?php echo $fetch['title']; ?>"><?php echo $fetch['title'] ."(". $fetch['classSubject'].")"; ?></option>
+                            <option value="<?php echo $fetch['title']; ?>"><?php echo $fetch['title'] .",". $fetch['classSubject']; ?></option>
                         <?php } ?>
                       </select>
                       <?php
@@ -82,7 +82,7 @@
                       ?>                   
                     </div>                                                                       
                     <div class="form-group ">
-                      <button class="btn btn-block btn-primary" name="add">Submit</button> 
+                      <button class="btn btn-block btn-primary" name="edit">Submit</button> 
                     </div>                                 
                   </div>
                 </div>

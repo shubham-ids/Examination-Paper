@@ -140,18 +140,20 @@ $(document).ready(function(){
       if($.trim($('.checkItem:checked').parents("tr").children("td.statusAction").text()) == bulkAction){
         $('#outputMessage').html("<h4 class='alert alert-danger'><i class='icon fa fa-ban'></i>User is already "+bulkAction+".</h4>");
         return false;
+      }else{
+        $('#outputMessage').html("");
       }
       if(confirm(message)){
         $.ajax({
         type: "get",
         url: "?multiAction="+bulkAction,
         data:{ users : post_arr } ,
-        // beforeSend: function() {
-        //   $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' });
-        // },      
+        beforeSend: function() {
+          $('.checkItem:checked').parents("tr").animate({'backgroundColor':'#fb6c6c' });
+        },      
         success: function(response) {
           $.each(post_arr, function() {
-           // $('.checkItem:checked').parents("tr").animate({'backgroundColor':'rgba(255,0,0,0.2)' });
+            $('.checkItem:checked').parents("tr").animate({'backgroundColor':'rgba(255,0,0,0.2)' });
             $('.checkItem:checked').parents("tr").children("td.statusAction").html(bulkAction);
             $('.checkItem:checked').prop('checked',false);
           });

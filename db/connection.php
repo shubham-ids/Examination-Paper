@@ -2,14 +2,15 @@
   define('HOST','localhost');
   define('USERNAME','root');
   define('PASSWORD','');
- 
 
   define('CLASSICMODEL','classicmodels'); // Database classicmodel
   define('CUSTOMER','customers');        // classicmodel => tablename{ customers}
  
-
   define('EXAM','examination');  // 2 database examination
   define('USER','user');         // emamination => tablename{ user }
+  define('CLASSES','class');
+  define('SUBJECT','subject');
+  define('CHAPTER','chapters');
   // Database connectivity
   $dsn1 = 'mysql:dbname='.CLASSICMODEL.';host=127.0.0.1'; # Data Source Name
   $dsn  = 'mysql:dbname='.EXAM.';host=127.0.0.1;charset=utf8'; # Data Source Name
