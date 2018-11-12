@@ -105,7 +105,7 @@ try{
   $selectQuery = $pdo->prepare($query);
 
   if(!empty($searchBar)){
-    $selectQuery-> bindValue(':searchBar', $searchBar);
+    $selectQuery-> bindValue(':searchBar', '%'.$searchBar.'%');
   }
 
   // I have used this because
