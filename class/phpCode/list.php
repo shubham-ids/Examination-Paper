@@ -17,9 +17,9 @@ try{
   }
 // This method is used to search of the value form database   
   if(!empty($searchBar)){
-    $queryPart   = "
-      WHERE
-        `title` LIKE :searchBar
+    $queryPart = "
+    WHERE
+      `title` LIKE :searchBar
     ";
   } 
 // This method is used to Ascending / Descending Order  

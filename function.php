@@ -38,7 +38,8 @@
       $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'></i> Your  Record is not deleted !</p>"; 
     } 
     return true;                 
-  }  
+  } 
+
 /*
  * function Name : orderIcon
  * parameter     : $columnName  -> Mysql table column name
