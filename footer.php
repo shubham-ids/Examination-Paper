@@ -245,6 +245,17 @@
 <script src="<?php echo URL; ?>dist/js/pages/dashboard.js"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo URL; ?>dist/js/demo.js"></script>
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+    $('li').click(function(){
+       $('.menu-open ul li a').each(function(){
+        $(this).click(function(){
+          $(this).closest('li').addClass('active')
+        });
+      });
+    });
+  });
+</script> -->
 <!-- <script>
   $(function () {
     $('#example1').DataTable()

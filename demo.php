@@ -3,6 +3,9 @@
   if(isset($_REQUEST['logout'])){
     header('Location:user/login.php');
   }
+  echo "<pre>";
+    print_r($_SESSION);
+  echo "</pre>";
   include_once('user/userheader.php'); 
 ?>
 <form method="post">

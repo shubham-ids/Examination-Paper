@@ -86,9 +86,9 @@ try{
     ";
   } 
 // This method is used to Ascending / Descending Order  
-  // if(!empty($orderBy)){
-  //   $orderPart = " ORDER BY `$orderBy` $order ";
-  // } 
+  if(!empty($orderBy)){
+    $orderPart = " ORDER BY `$orderBy` $order ";
+  } 
   $query = "
     SELECT
     SQL_CALC_FOUND_ROWS
@@ -96,6 +96,7 @@ try{
     FROM
       `".CLASSES."`
       {$queryPart}
+      {$orderPart}
     LIMIT :limitPosition , :record_perpage 
     ";  
 

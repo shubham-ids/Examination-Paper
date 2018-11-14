@@ -48,7 +48,6 @@
                     <div class="dataTables_length col-sm-4" id="example1_length">
                       <label>Show 
                         <select name="showEntries" aria-controls="example1" class="form-control input-sm">
-                          <!--<option disabled=""> Select entries <?php echo $entries; ?></option>-->
                            <option value="10" <?php echo ($record_perpage == '10') ? "selected='selected'" : "" ; ?>>10</option>
                           <option value="15"  <?php echo ($record_perpage == '15') ? "selected='selected'" : "" ; ?>>15</option>
                           <option value="25"  <?php echo ($record_perpage == '25') ? "selected='selected'" : "" ; ?>>25</option>

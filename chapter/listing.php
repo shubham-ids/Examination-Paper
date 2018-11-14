@@ -1,5 +1,6 @@
 <?php 
   include_once('phpCode/list.php');
+  include_once('../function.php');
   include_once('../header.php'); 
   include_once('../sideBar.php');
 ?>
@@ -34,58 +35,36 @@
                 <div class="row">                      
                   <div class="col-sm-8">
                   <!--  <form> -->
-                    <div class="dataTables_length col-sm-2" id="example1_length">
-                      <label>Action :
-                        <select aria-controls="example1" name="multiAction" class="form-control input-sm bulkaction">
-                          <option value="">Select</option>
-                          <option value="deleted"> Delete </option>
-                        </select>
-                      </label>
-                    </div>   
-                   <!-- </form>  -->             
-                    <div class="dataTables_length col-sm-4" id="example1_length">
-                      <label>Show 
-                        <select name="showEntries" aria-controls="example1" class="form-control input-sm">
-                          <!--<option disabled=""> Select entries <?php echo $entries; ?></option>-->
-                           <option value="10" <?php echo ($record_perpage == '10') ? "selected='selected'" : "" ; ?>>10</option>
-                          <option value="15"  <?php echo ($record_perpage == '15') ? "selected='selected'" : "" ; ?>>15</option>
-                          <option value="25"  <?php echo ($record_perpage == '25') ? "selected='selected'" : "" ; ?>>25</option>
-                        </select> entries
-                        <button class="btn btn-sm btn-primary btn-create" id="actionButton">Action</button>
-                      </label>
-                    </div>
+                    <?php
+                      $addField = ['deleted' => 'Delete'];
+                      bulkAction('multiAction' , $addField);
+                    ?>
+                    <?php
+                      $optionFieldValue = [
+                        '10' => '10',
+                        '20' => '20',
+                        '30' => '30'
+                      ];
+                      showEnteriesField('showEntries' , $optionFieldValue , $record_perpage);
+                    ?>
                   </div>
-                  <div class="col-sm-4">
-                    <div id="example1_filter" class="dataTables_filter">
-                      <label>Search:
-                        <div class="input-group input-group-sm">
-                          <input 
-                            type="search" 
-                            class="form-control input-sm"
-                            value="<?php echo isset($_REQUEST['searchBar']) ? $_REQUEST['searchBar'] : '' ;?>" 
-                            placeholder="search.." 
-                            aria-controls="" 
-                            name="searchBar">
-                          <span class="input-group-btn">
-                            <button class="btn btn-info btn-flat"  type="submit" name="search">Go!</button>
-                          </span>
-                        </div>
-                      </label>
-                    </div>
-                  </div>
+                  <?php searchField('searchBar'); ?>
                 </div>
                 <div class="row">
                   <div class="col-sm-12">
                     <table id="example1" class="table table-bordered table-striped">
                       <thead>
                         <tr>
-                          <th style="width: 74px"><input type="checkbox" class="checkAll"><i class="countChecked"></i></th>
-                          <th>Serial Number</th>
-                          <th>Subject</th>
-                          <th>Description</th>
-                          <th>Select Subject</th>
-                          <th>Limit Marks</th>
-                          <th>Create On</th>
+                          <?php
+                            $tableHeadName = [
+                              'title'        => 'Chapter Name',
+                              'description'  => 'Description',
+                              'classSubject' => 'Select Subject',
+                              'limit-marks'  => 'Limit Marks',
+                              'create-on'    => 'Create on'
+                            ];
+                            renderTableHead( $tableHeadName , $order , $currentPage);
+                          ?>                                                    
                           <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                         </tr>
                       </thead>
@@ -146,13 +125,7 @@
                       </tbody>
                       <tfoot>
                         <tr>
-                          <th><input type="checkbox" class="checkAll"><i class="countChecked"></i></th>
-                          <th>Serial Number</th>
-                          <th>Subject</th>
-                          <th>Description</th>
-                          <th>Select Subject</th>
-                          <th>Limit Marks</th>
-                          <th>Create On</th>
+                          <?php renderTableHead( $tableHeadName , $order , $currentPage); ?>
                           <th class="actionIcon" align="center">Action&nbsp&nbsp<em class="fa fa-cog"></em></th>
                         </tr>
                       </tfoot>
@@ -160,52 +133,7 @@
                   </div>
                   <!-- col-sm-12-->
                 </div><!-- row -->
-                <div class="row">
-                  <div class="col-sm-5">
-                    <div class="dataTables_info" id="example1_info" role="status" aria-live="polite">
-                      Showing 1 to 10 of <?php echo $response; ?> entries
-                    </div>
-                  </div>
-                  <div class="col-sm-7">
-                    <div class="dataTables_paginate paging_simple_numbers" id="example1_paginate">
-                      <ul class="pagination">
-                      <?php
-                      if( $currentPage  ){ 
-                        $previous   = $currentPage-1;
-                        $className  = ($currentPage == 1)? 'disabled' : '';
-                        $linkOnload = ($currentPage == 1)? '#' : '';
-                      ?>
-                        <li class="<?php echo $className; ?>">
-                          <a 
-                            href="?searchBar=<?php echo $searchBar; ?>&multiAction=&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $previous.$linkOnload;?> ">
-                            Previous</a>
-                        </li>
-                     <?php }
-                        for($j=1; $j <= $totalpages; $j++){ 
-                          $className  = ($j == $currentPage)? 'active' : '';
-                          $linkOnload = ($j == $currentPage)? '#' : '';
-                       ?>
-                      <li class="<?php echo $className; ?>">
-                        <a href="?searchBar=<?php echo $searchBar; ?>&multiAction=&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $j.$linkOnload; ?>"><?php echo $j; ?></a>
-                      </li>
-                      <?php } ?>
-                      <?php  
-                        if( $currentPage ){
-                          $next       = $currentPage+1; 
-                          $next       = ($response == 0)?'#':'';
-                          $className  = ($currentPage == $totalpages)? 'disabled' : '';
-                          $className  = ($response == 0)?'disabled':'';
-                          $linkOnload = ($currentPage == $totalpages)? '#' : '';
-                          ?>
-                          <li class="<?php echo $className; ?>">
-                            <a 
-                              href="?searchBar=<?php echo $searchBar; ?>&multiAction=&order=<?php echo $order == 'desc'?'asc':'desc'; ?>&page=<?php echo $next.$linkOnload;?>">Next</a>
-                          </li>
-                       <?php }  ?>
-                      </ul>
-                    </div>
-                  </div>
-                </div>  
+                <?php pagination($currentPage , $record_perpage , $searchBar , $response , $totalpages); ?>   
               </div>
               <!--.data wrapper -->
             </div>

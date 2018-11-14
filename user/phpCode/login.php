@@ -35,6 +35,10 @@ try{
       $row = $selectQuery->fetch();
       $rowCount = $selectQuery->rowCount();
       if($rowCount > 0){
+        $_SESSION['user'] = $email;
+        echo "<pre>";
+          print_r($_SESSION);
+        echo "</pre>";
       // This Email and password only for Admin
         if($email == "shubham@jyoti"){
           return header('location:../index.php');
@@ -46,7 +50,7 @@ try{
         if( $row['activity'] == 'activate' ){
           return header('Location:../demo.php');
         }
-        $message = "<div class='form-group has-success'><label for='has-success'><i class='fa fa-check'>WellCome". $row['firstname']."</i></label></div>";
+        $message = "<div class='form-group has-success'><label for='has-success'><i class='fa fa-check'> WellCome ". $row['firstname']."</i></label></div>";
       }else{
         $message  = "Invalide email and password";
       }

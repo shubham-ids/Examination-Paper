@@ -34,7 +34,7 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="active"><a href="<?php echo URL; ?>index.php"><i class="fa fa-circle-o"></i> Index</a></li>
+          <li><a href="<?php echo URL; ?>index.php"><i class="fa fa-circle-o"></i> Index</a></li>
         </ul>
       </li>
       <li class="header">LABELS</li>
