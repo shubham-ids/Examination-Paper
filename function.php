@@ -161,7 +161,10 @@
 <?php return true;} ?> 
 <?php 
 /*
- * Function Name : bulkAction 
+ * Function Name : bulkAction
+ * Parameter     : $fieldName -> write of the field name
+                 : $addField  -> Add new option value
+ * Return        : ture                
  */
   function bulkAction($fieldName , $addField){ ?>
     <div class="dataTables_length col-sm-4" id="example1_length">
@@ -175,4 +178,28 @@
         <button class="btn btn-sm btn-primary btn-create" id="actionButton">Action</button>
       </label>
     </div> 
-<?php  } ?>  
+<?php  return true;} ?>  
+<?php 
+  function DeleteAction( $tableName , $id){
+// This method is used to multiple record delete in databases    
+    global $pdo;
+    global $message;
+   /* $query       = " DELETE FROM `".$tableName."` WHERE id IN (:id) ";
+    $deleteQuery = $pdo->prepare($query);
+    $results     = $deleteQuery->execute(['id' => implode("','", $ids)  ]);
+    if( $results !== false ){
+      $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Records delete successfull</p>";
+    }else{
+      $message = "<p class='callout callout-ban '><i class='icon fa fa-check'> </i> Your multiple Records are not delete !</p>";
+    }        
+  } */
+    $query       = "DELETE FROM `".$tableName."` WHERE id = :id ";
+    $deleteQuery = $pdo->prepare($query);
+    $results     = $deleteQuery->execute( ['id' => $id] );
+    if( $results !== false ){
+      $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Record deleted successfully</p>";
+    }else{
+      $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'></i> Your  Record is not deleted !</p>"; 
+    }                  
+  }
+?>

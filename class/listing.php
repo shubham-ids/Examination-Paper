@@ -1,6 +1,5 @@
 <?php 
   include_once('phpCode/list.php');
-  include_once('../function.php');
   include_once('../header.php'); 
   include_once('../sideBar.php');
 ?>
@@ -29,15 +28,15 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Users of records</h3>
-            </div>
-            <div id="outputMessage">
-              <?php echo $message; ?>
+              <h3 class="box-title">All Classes</h3>
             </div> 
             <!-- /.box-header -->
             <div class="box-body" >
+              <div id="outputMessage">
+                <?php echo $message; ?>
+              </div>
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
-                <div class="row">                      
+                <div class="row">                              
                   <div class="col-sm-8">
                   <!--  <form> -->
                     <?php
