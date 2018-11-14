@@ -7,6 +7,7 @@
   /**** Already variable name are use in function file: ***/
     $currentpage , $order , $tableHeadName - $key => $value ,$columnName , $customName , $order , $orderBy
     $searchName , $response , $totalpages , $fieldname , $option , $record_perpage,$fieldName  , $addField    
+    $tableName , $id
 -->
 <form method="get">
   <!-- Content Wrapper. Contains page content -->

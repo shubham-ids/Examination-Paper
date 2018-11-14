@@ -11,6 +11,35 @@
     echo "</pre>";
   }
 /*
+ * Function Name : DeleteAction
+ * Parameter     : $tableName -> write the table name from database
+                 : $id        -> Send the delete record  id
+ * Return        : true
+*/
+  function DeleteAction( $tableName , $id){
+// This method is used to multiple record delete in databases    
+    global $pdo;
+    global $message;
+   /* $query       = " DELETE FROM `".$tableName."` WHERE id IN (:id) ";
+    $deleteQuery = $pdo->prepare($query);
+    $results     = $deleteQuery->execute(['id' => implode("','", $ids)  ]);
+    if( $results !== false ){
+      $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Records delete successfull</p>";
+    }else{
+      $message = "<p class='callout callout-ban '><i class='icon fa fa-check'> </i> Your multiple Records are not delete !</p>";
+    }        
+  } */
+    $query       = "DELETE FROM `".$tableName."` WHERE id = :id ";
+    $deleteQuery = $pdo->prepare($query);
+    $results     = $deleteQuery->execute( ['id' => $id] );
+    if( $results !== false ){
+      $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Record deleted successfully</p>";
+    }else{
+      $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'></i> Your  Record is not deleted !</p>"; 
+    } 
+    return true;                 
+  }  
+/*
  * function Name : orderIcon
  * parameter     : $columnName  -> Mysql table column name
  *               : $customName  -> display the custom head name 
@@ -179,27 +208,3 @@
       </label>
     </div> 
 <?php  return true;} ?>  
-<?php 
-  function DeleteAction( $tableName , $id){
-// This method is used to multiple record delete in databases    
-    global $pdo;
-    global $message;
-   /* $query       = " DELETE FROM `".$tableName."` WHERE id IN (:id) ";
-    $deleteQuery = $pdo->prepare($query);
-    $results     = $deleteQuery->execute(['id' => implode("','", $ids)  ]);
-    if( $results !== false ){
-      $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Records delete successfull</p>";
-    }else{
-      $message = "<p class='callout callout-ban '><i class='icon fa fa-check'> </i> Your multiple Records are not delete !</p>";
-    }        
-  } */
-    $query       = "DELETE FROM `".$tableName."` WHERE id = :id ";
-    $deleteQuery = $pdo->prepare($query);
-    $results     = $deleteQuery->execute( ['id' => $id] );
-    if( $results !== false ){
-      $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Record deleted successfully</p>";
-    }else{
-      $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'></i> Your  Record is not deleted !</p>"; 
-    }                  
-  }
-?>
