@@ -54,21 +54,7 @@ try{
 
   $totalpages = ceil( $response / $record_perpage );
   $result     = $selectQuery->fetchAll();
-
-  if($totalpages != 0 && $currentPage > $totalpages) {
-  
-    // This method is convert the Querystring to array using parse_str
-    // QUERY_STRING are like url:?searchBar=Rahul&page=1 to 2
-
-    parse_str($_SERVER['QUERY_STRING'], $queryArray); 
-    $queryArray['page'] = $totalpages;
-
-    // This method is used to convert the ArrayQuery to stringQuery
-    // http_build_query is used to generate url-encoded string from the provided array
-
-    $queryString =  http_build_query($queryArray);
-    header("Location: ?".$queryString);
-  }
+  Querystring($totalpages , $currentPage);
 }catch(PDOException $e){
     echo "Not display the record contact the developer";
     echo $e->getMessage();

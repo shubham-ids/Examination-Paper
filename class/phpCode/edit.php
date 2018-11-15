@@ -1,14 +1,15 @@
 <?php 
-include_once('../db/connection.php');
-$message = "";
 try{
+  include_once('../db/connection.php');
+  include_once('../function.php');
+  $message = "";
 // This method is used to get the Id is blank then page jump to listing page 
   if( ! $_REQUEST['id'] ){
     header('location: listing.php');
     echo "Your request is blank";
     return;
   }
-  $id     = $_REQUEST['id'];
+  $id = $_REQUEST['id'];
   if(!isset($_REQUEST['status'])){
       $status = "";
   }   
@@ -71,12 +72,12 @@ try{
     // else not success message are display
 
       if( $response !== false ){
-        $message = "<p class='alert alert-success'>Record update successfull !</p>";
+        displayMessage('Record update successfull !' ,'success','check');
       }else{
-        $message = "<p class='alert alert-danger'>Your Record is not updated !</p>";
+        displayMessage('Your Record is not updated !' ,'danger','ban');
       }         
     }else{
-      $message   = "<p class='alert alert-danger'>".$title." is already include!</p>";
+      displayMessage( $title.' is already include!' ,'danger','ban');
     } 
   } // Closed the breases is validation error message are true
 }

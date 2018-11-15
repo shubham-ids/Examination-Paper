@@ -26,12 +26,12 @@
           $insert = $pdo->prepare($query);
           $responce = $insert->execute( $row );
           if($responce !== false){
-            $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Data insert successfully</p>";
+            displayMessage('Data insert successfully' ,'success','check');
           }else{
-            $message = "<p class='callout callout-ban '><i class='icon fa fa-check'> </i> Data is not insert</p>";
+            displayMessage('Your data is not inserted' ,'danger','ban');
           }
         }else{
-          $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'> </i> Title name is ".$title." already exites</p>"; 
+          displayMessage( 'Title name is '.$title.' already exites' ,'danger','ban'); 
         }
       }    
     }

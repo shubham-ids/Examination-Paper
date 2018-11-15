@@ -11,6 +11,12 @@
     echo "</pre>";
   }
 /*
+ * Function Name : displayRecord
+ */
+  function displayRecord(){
+    // Mysql select query
+  }
+/*
  * Function Name : DeleteAction
  * Parameter     : $tableName -> write the table name from database
                  : $id        -> Send the delete record  id
@@ -39,6 +45,35 @@
     } 
     return true;                 
   } 
+/*
+* Function Name : Querystring
+* Parameter     : $totalpages  -> PerPage of records
+                : $currentPage -> current page of the value
+*/
+function Querystring($totalpages , $currentPage  ){
+  if($totalpages != 0 && $currentPage > $totalpages) {
+    // This method is convert the Querystring to array using parse_str
+    // QUERY_STRING are like url:?searchBar=Rahul&page=1 to 2
+    parse_str($_SERVER['QUERY_STRING'], $queryArray); 
+    $queryArray['page'] = $totalpages;
+    // This method is used to convert the ArrayQuery to stringQuery
+    // http_build_query is used to generate url-encoded string from the provided array
+    $queryString =  http_build_query($queryArray);
+    header("Location: ?".$queryString);
+  }
+}  
+
+/*
+* Function Name : displayMessage
+* Parameter     : $messsage -> app output message ko kaha shiw krwana chahte ho
+                : $input    -> kya show krwana chahte ho
+                : $msgIcon  -> Display the message icon
+* Return        : $message                
+*/
+  function displayMessage($input , $msgStatus , $msgIcon){
+    global $message;
+    return $message = "<p class='callout callout-".$msgStatus."'><i class='icon fa fa-".$msgIcon."'></i> " .$input."</p>"; 
+  }
 
 /*
  * function Name : orderIcon

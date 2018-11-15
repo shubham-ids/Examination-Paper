@@ -24,15 +24,15 @@
               <h3 class="box-title">Add of the new class</h3>
             </div>
             <div class="box-body">
+              <?php
+                if(isset( $ErrorMessage ) == true){
+                  echo $ErrorMessage;
+                } 
+                echo $message;
+              ?>         
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">                      
                   <div class="col-sm-12">
-                  <?php
-                    if(isset( $ErrorMessage ) === true){
-                      echo $ErrorMessage;
-                    } 
-                    echo $message;
-                  ?>
                     <div class="form-group editGroup">
                       <label>Class Name :</label>
                       <input 
