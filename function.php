@@ -76,6 +76,15 @@ function Querystring($totalpages , $currentPage  ){
   }
 
 /*
+ * Function Name : requiredMessage
+ * parameter     : null
+ * Return        : blankFieldMessage
+*/  
+  function requiredMessage(){
+    return $blankFieldMessage = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+  }
+
+/*
  * function Name : orderIcon
  * parameter     : $columnName  -> Mysql table column name
  *               : $customName  -> display the custom head name 

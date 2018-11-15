@@ -10,19 +10,19 @@
       $subjectClass  = $_REQUEST['classSubject']; 
       $validationErrorMessage = false;
       if(empty($title) ){
-        $titleErrorMessage      = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $titleErrorMessage      = requiredMessage();
         $validationErrorMessage = true;
       }  
       if(empty($description) ){
-        $descriptionErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $descriptionErrorMessage = requiredMessage();
         $validationErrorMessage  = true;
       }
       if(empty($limitMarks) ){
-        $limitMarkErrorMessage   = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $limitMarkErrorMessage   = requiredMessage();
         $validationErrorMessage  = true;
       }  
       if(empty($subjectClass) ){
-        $classSubjectErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $classSubjectErrorMessage = requiredMessage();
         $validationErrorMessage   = true;
       }                             
       if( $validationErrorMessage == false ){
@@ -48,12 +48,15 @@
           $stmt     = $pdo->prepare($query);
           $responce = $stmt->execute($row);
           if($responce !== false){
-            $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Data insert successfully</p>";
+            displayMessage('Data insert successfully' ,'success','check');
           }else{
-            $message = "<p class='callout callout-ban '><i class='icon fa fa-check'> </i> Data is not insert !</p>";
+            displayMessage('Your data is not inserted' ,'danger','ban');
           }
         }else{
-          $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'> </i> The ".$title." are already Include !</p>"; 
+          $selectQuery  =  $pdo->query("SELECT * FROM ".SUBJECT." WHERE id =".$subjectClass); 
+          while( $fetch = $selectQuery->fetch() ){ 
+            displayMessage( 'This chapter name '.$title.' is already include for '.$fetch['title'].' subject' ,'danger','ban');
+          } 
         }
       }    
     }

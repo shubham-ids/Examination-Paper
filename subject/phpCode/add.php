@@ -3,6 +3,7 @@
     include_once('../db/connection.php');
     include_once('../function.php');
     $message ="";
+    $titleErrorMessage ="";
     if( isset($_REQUEST['add']) ){
       $title         = $_REQUEST['title'];
       $description   = $_REQUEST['description'];
@@ -13,27 +14,23 @@
 
       $validationErrorMessage = false;
       if(empty($title) ){
-        $titleErrorMessage      = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $titleErrorMessage = requiredMessage();
         $validationErrorMessage = true;
       }  
       if(empty($description) ){
-        $descriptionErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $descriptionErrorMessage = requiredMessage();
         $validationErrorMessage  = true;
       }
       if(empty($ExamTime) ){
-        $examTimeErrorMessage   = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $examTimeErrorMessage   = requiredMessage();
         $validationErrorMessage = true;
       }  
-      if(empty($precticalNo) ){
-        $precticalErrorMessage  = "<p class='text-red  validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      if(empty($precticalNo) || empty($theoreticalNo)  ){
+        $required  = requiredMessage();
         $validationErrorMessage = true;
-      } 
-      if(empty($theoreticalNo) ){
-        $theoreticalErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
-        $validationErrorMessage  = true;
       }  
       if(empty($subjectClass) ){
-        $classSubjectErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+        $classSubjectErrorMessage = requiredMessage();
         $validationErrorMessage   = true;
       }                             
       if( $validationErrorMessage == false ){
@@ -61,12 +58,15 @@
           $stmt     = $pdo->prepare($query);
           $responce = $stmt->execute($row);
           if($responce !== false){
-            $message = "<p class='callout callout-success '><i class='icon fa fa-check'> </i> Data insert successfully</p>";
+            displayMessage('Data insert successfully' ,'success','check');
           }else{
-            $message = "<p class='callout callout-ban '><i class='icon fa fa-check'> </i> Data is not insert</p>";
+            displayMessage('Your data is not inserted' ,'danger','ban');
           }
         }else{
-          $message = "<p class='callout callout-danger '><i class='icon fa fa-ban'> </i> This ".$title." already Include for ".$subjectClass." </p>"; 
+          $selectQuery  =  $pdo->query("SELECT * FROM ".CLASSES." WHERE id =".$subjectClass); 
+          while( $fetch = $selectQuery->fetch() ){ 
+              displayMessage( 'This '.$title.' already include for '.$fetch['title'].'' ,'danger','ban');
+          }  
         }
       }    
     }

@@ -1,5 +1,6 @@
 <?php 
 include_once('../db/connection.php');
+include_once('../function.php');
 $message = "";
 try{
 // This method is used to get the Id is blank then page jump to listing page 
@@ -21,32 +22,27 @@ try{
     $subjectClass  = $_REQUEST['classSubject'];   
     
   // This methos is used to display the required message
-    $validationErrorMessage = false;
-    
+    $validationErrorMessage = false;    
     if(empty($title) ){
-      $titleErrorMessage      = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $titleErrorMessage = requiredMessage();
       $validationErrorMessage = true;
     }  
     if(empty($description) ){
-      $descriptionErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $descriptionErrorMessage = requiredMessage();
       $validationErrorMessage  = true;
     }
     if(empty($ExamTime) ){
-      $examTimeErrorMessage   = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $examTimeErrorMessage   = requiredMessage();
       $validationErrorMessage = true;
     }  
-    if(empty($precticalNo) ){
-      $precticalErrorMessage  = "<p class='text-red  validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+    if(empty($precticalNo) || empty($theoreticalNo)  ){
+      $required  = requiredMessage();
       $validationErrorMessage = true;
-    } 
-    if(empty($theoreticalNo) ){
-      $theoreticalErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
-      $validationErrorMessage  = true;
     }  
     if(empty($subjectClass) ){
-      $classSubjectErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $classSubjectErrorMessage = requiredMessage();
       $validationErrorMessage   = true;
-    }
+    }  
   // This method is used to when validation error message is false
   // Then this statement is executed 
   // Else this method is display the error  
@@ -92,12 +88,15 @@ try{
     // else not success message are display
 
       if( $response !== false ){
-        $message = "<p class='alert alert-success'>Record update successfull !</p>";
+        displayMessage('Record update successfully' ,'success','check');
       }else{
-        $message = "<p class='alert alert-danger'>Your Record is not updated !</p>";
+        displayMessage('Your record is not updated !' ,'danger','ban');
       }         
     }else{
-      $message   = "<p class='alert alert-danger'>".$title." is already include!</p>";
+      $selectQuery  =  $pdo->query("SELECT * FROM ".CLASSES." WHERE id =".$subjectClass); 
+      while( $fetch = $selectQuery->fetch() ){ 
+        displayMessage( 'This '.$title.' already include for '.$fetch['title'].'' ,'danger','ban');
+      } 
     } 
   } // Closed the breases is validation error message are true
 }

@@ -72,12 +72,7 @@
                         class="form-control " 
                         name="prectical-no" 
                         placeholder="Enter prectical Number"   
-                        value="<?php echo empty($precticalNo) ? '' : $precticalNo; ?>" >
-                        <?php
-                          if(isset( $precticalErrorMessage ) === true){
-                            echo $precticalErrorMessage;
-                          } 
-                        ?>                       
+                        value="<?php echo empty($precticalNo) ? '' : $precticalNo; ?>" >                   
                       <input 
                         type="text" 
                         class="form-control " 
@@ -85,8 +80,8 @@
                         placeholder="Enter Theoretical Number" 
                         value="<?php echo empty($theoreticalNo) ? '' : $theoreticalNo; ?>" >
                         <?php
-                          if(isset( $theoreticalErrorMessage ) === true){
-                            echo $theoreticalErrorMessage;
+                          if(isset( $required ) === true){
+                            echo $required;
                           } 
                         ?>                      
                     </div> 

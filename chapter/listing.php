@@ -58,7 +58,7 @@
                             $tableHeadName = [
                               'title'        => 'Chapter Name',
                               'description'  => 'Description',
-                              'classSubject' => 'Select Subject',
+                              'subjectTitle' => 'Select Subject',
                               'limit-marks'  => 'Limit Marks',
                               'create-on'    => 'Create on'
                             ];
@@ -98,11 +98,7 @@
                               echo mb_strimwidth($string, 0, 40, ".....");
                             ?>    
                           </td>
-                          <td>
-                            <?php 
-                              echo ($row['classSubject'] == $fetch['id']) ? $fetch['title'] : $row['subject'];
-                            ?>
-                          </td>
+                          <td><?php echo $row['subjectTitle'];  ?></td>
                           <td><?php echo $row['limit-marks']; ?></td>
                           <td><?php echo $row['create-on']; ?></td>
                           <td align="left">

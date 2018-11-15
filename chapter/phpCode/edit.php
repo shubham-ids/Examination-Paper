@@ -1,5 +1,6 @@
 <?php 
 include_once('../db/connection.php');
+include_once('../function.php');
 $message = "";
 try{
 // This method is used to get the Id is blank then page jump to listing page 
@@ -19,19 +20,19 @@ try{
     $subjectClass  = $_REQUEST['classSubject']; 
     $validationErrorMessage = false;
     if(empty($title) ){
-      $titleErrorMessage      = "<p class='text-red validationRequired'><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $titleErrorMessage      = requiredMessage();
       $validationErrorMessage = true;
     }  
     if(empty($description) ){
-      $descriptionErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $descriptionErrorMessage = requiredMessage();;
       $validationErrorMessage  = true;
     }
     if(empty($limitMarks) ){
-      $limitMarkErrorMessage   = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $limitMarkErrorMessage   = requiredMessage();;
       $validationErrorMessage  = true;
     }  
     if(empty($subjectClass) ){
-      $classSubjectErrorMessage = "<p class='text-red validationRequired '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+      $classSubjectErrorMessage = requiredMessage();;
       $validationErrorMessage   = true;
     }
   // This method is used to when validation error message is false
@@ -75,12 +76,15 @@ try{
     // else not success message are display
 
       if( $response !== false ){
-        $message = "<p class='alert alert-success'><i class='icon fa fa-check'></i>Record update successfull !</p>";
+        displayMessage('Record updated successfully' ,'success','check');;
       }else{
-        $message = "<p class='alert alert-danger'><i class='icon fa fa-ban'></i>Your Record is not updated !</p>";
+         displayMessage('Your record is not updated' ,'danger','ban');
       }         
     }else{
-      $message   = "<p class='alert alert-danger'><i class='icon fa fa-ban'></i>".$title." is already include!</p>";
+      $selectQuery  =  $pdo->query("SELECT * FROM ".SUBJECT." WHERE id =".$subjectClass); 
+      while( $fetch = $selectQuery->fetch() ){ 
+        displayMessage( 'This chapter name '.$title.' is already include for '.$fetch['title'].' subject' ,'danger','ban');
+      } 
     } 
   } // Closed the breases is validation error message are true
 }

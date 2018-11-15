@@ -31,16 +31,20 @@ try{
   $query = "
     SELECT
     SQL_CALC_FOUND_ROWS
-     *
+    `".CHAPTER."`.*,
+    `".SUBJECT."`.title as subjectTitle
     FROM
       `".CHAPTER."`
+    INNER JOIN
+      `".SUBJECT."` 
+    ON
+      `".CHAPTER."`.classSubject = `".SUBJECT."`.id
       {$queryPart}
       {$orderPart}
     LIMIT :limitPosition , :record_perpage 
     ";  
 
   $selectQuery = $pdo->prepare($query);
-
   if(!empty($searchBar)){
     $selectQuery-> bindValue(':searchBar', '%'.$searchBar.'%');
   }

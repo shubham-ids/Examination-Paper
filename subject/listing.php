@@ -56,12 +56,12 @@
                         <tr>
                           <?php
                             $tableHeadName = [
-                              'title'            => 'Class Name',
+                              'title'            => 'Subject Name',
                               'description'      => 'Description',
                               'prectical-no'     => 'Prectical Number',
                               'theoretical-no'   => 'Theoretical No',
                               'examination-time' => 'Examination Time',
-                              'classSubject'     => 'Class',
+                              'cTitle'           => 'Class',
                               'create-on'        => 'Create on'
                             ];
                             renderTableHead( $tableHeadName , $order , $currentPage);
@@ -86,8 +86,6 @@
                         ?>
                       <?php 
                         foreach( $result as $row ){
-                          $query = "SELECT * FROM `class` WHERE `id` = ".$row['classSubject'];
-                          $subQuery = $pdo->query($query);
                          ?>
                           <tr>
                             <td><input type="checkbox" name="users[]" class="checkItem" value="<?php echo $row['id']; ?>"></td>
@@ -102,11 +100,7 @@
                             <td><?php echo $row['prectical-no']; ?></td>
                             <td><?php echo $row['theoretical-no']; ?></td>
                             <td><?php echo $row['examination-time']; ?></td>
-                            <td>
-                              <?php $fetch = $subQuery->fetch(); 
-                              ?>
-                              <?php echo ( $row['classSubject'] == $fetch['id'] ) ? $fetch['title'] : $row['classSubject'] ; ?>             
-                            </td>
+                            <td><?php echo $row['cTitle']; ?></td>
                             <td><?php echo $row['create-on']; ?></td>
                             <td align="left">
                               <a 

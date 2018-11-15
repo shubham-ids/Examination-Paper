@@ -29,9 +29,14 @@ try{
   $query = "
     SELECT
     SQL_CALC_FOUND_ROWS
-     *
+    `".SUBJECT."`.*,
+    `".CLASSES."`.title as cTitle
     FROM
       `".SUBJECT."`
+    INNER JOIN  
+      `".CLASSES."`
+    ON  
+      `".SUBJECT."`.classSubject = `".CLASSES."`.id
       {$queryPart}
       {$orderPart}
     LIMIT :limitPosition , :record_perpage 

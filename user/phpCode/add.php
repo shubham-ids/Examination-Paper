@@ -1,7 +1,9 @@
 <?php
   include_once('../db/connection.php');
+  include_once('../function.php');
   $message = "";
   try{
+    $activity = (!isset($_POST['activity']) ? '' : $_POST['activity'] );
     if(isset($_REQUEST['add'])){    
       $firstname = $_POST['firstname'];
       $lastname  = $_POST['lastname'];
@@ -10,32 +12,32 @@
       $password  = $_POST['password'];
       $Cpassword = $_POST['Cpassword'];
       $activity  = $_POST['activity']; 
-      
+    
       $status = (empty($status)) ? 'deactivate' : $status;
     // This methos is used to display the required message
       $validationErrorMessage = false;
       if(empty($firstname)){
-        $firstnameErrorMessage  = "This field is required";
+        $firstnameErrorMessage  = requiredMessage();
         $validationErrorMessage = true;
       }
       if(empty($lastname)){
-        $lastnameErrorMessage   = "This field is required";
+        $lastnameErrorMessage   = requiredMessage();
         $validationErrorMessage = true;
       }
       if(empty($username)){
-        $usernameErrorMessage   = "This field is required";
+        $usernameErrorMessage   = requiredMessage();
         $validationErrorMessage = true;
       }      
       if(empty($email)){
-        $emailErrorMessage      = "This field is required";
+        $emailErrorMessage      = requiredMessage();
         $validationErrorMessage = true;
       }
       if(empty($password)){
-        $passwordErrorMessage   = "This field is required";
+        $passwordErrorMessage   = requiredMessage();
         $validationErrorMessage = true;
       } 
       if(empty($Cpassword)){
-        $CpasswordErrorMessage   = "This field is required";
+        $CpasswordErrorMessage   = requiredMessage();
         $validationErrorMessage = true;
       } 
       
@@ -76,13 +78,13 @@
           $insert->execute( $rows );
 
           if($insert !== false){
-            $message = "<p class='alert alert-success'>Successful registration!</p>";
+            displayMessage('Successful registration!' ,'success','check');
           }else{
-            $message = "<p class='alert alert-danger'>registration Error!</p>";
+            displayMessage('registration Error!' ,'danger','ban');
             //echo $pdo->error;
           }        
         }else{
-          $message = "<p class='alert alert-danger'>Username and Email is already include!</p>";  
+          displayMessage('Username: '.$username.' and Email: '.$email.' is already include' ,'danger','ban');
         }          
       }              
     }

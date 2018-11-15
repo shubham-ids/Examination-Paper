@@ -1,5 +1,6 @@
 <?php 
 include_once('../db/connection.php');
+include_once('../function.php');
 $message = "";
 try{
 // This method is used to get the Id is blank then page jump to listing page 
@@ -10,7 +11,7 @@ try{
   }
   $id     = $_REQUEST['id'];
   if(!isset($_REQUEST['status'])){
-      $status = "";
+      $_REQUEST['status'] = "";
   }   
   if(isset($_REQUEST['edit'])){
     $firstname = $_POST['firstname'];
@@ -98,12 +99,12 @@ try{
     // else not success message are display
 
       if( $response !== false ){
-        $message = "<p class='alert alert-success'>Record update successfull !</p>";
+        displayMessage('User update successfull' ,'success','check');
       }else{
-        $message = "<p class='alert alert-danger'>Your Record is not updated !</p>";
+        displayMessage('User is not updated' ,'danger','ban');
       }         
     }else{
-      $message   = "<p class='alert alert-danger'>Email is already include!</p>";
+      displayMessage('Email is already include' ,'danger','ban');
     } 
   } // Closed the breases is validation error message are true
 }
