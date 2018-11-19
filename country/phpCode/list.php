@@ -7,19 +7,19 @@ try{
 // This custom function is used to delete of the multiple records
   if( $multiAction == 'deleted' ){
     foreach( $user as $id ){
-      DeleteAction( SUBJECT , $id); 
+      DeleteAction( COUNTRY , $id); 
     }
-  } 
+  }   
 // This method is used to delete the row in database using PDO 
   if( $task == 'delete' ){
     $id = $_REQUEST['id'];
-    DeleteAction( SUBJECT , $id); 
+    DeleteAction( COUNTRY , $id); 
   }
 // This method is used to search of the value form database   
   if(!empty($searchBar)){
-    $queryPart   = "
-      WHERE
-        ".SUBJECT.".`title` LIKE :searchBar
+    $queryPart = "
+    WHERE
+      `title` LIKE :searchBar
     ";
   } 
 // This method is used to Ascending / Descending Order  
@@ -29,14 +29,9 @@ try{
   $query = "
     SELECT
     SQL_CALC_FOUND_ROWS
-    `".SUBJECT."`.*,
-    `".CLASSES."`.title as cTitle
+     *
     FROM
-      `".SUBJECT."`
-    INNER JOIN  
-      `".CLASSES."`
-    ON  
-      `".SUBJECT."`.classSubject = `".CLASSES."`.id
+      `".COUNTRY."`
       {$queryPart}
       {$orderPart}
     LIMIT :limitPosition , :record_perpage 
@@ -59,7 +54,6 @@ try{
 
   $totalpages = ceil( $response / $record_perpage );
   $result     = $selectQuery->fetchAll();
-
   Querystring($totalpages , $currentPage);
 }catch(PDOException $e){
     echo "Not display the record contact the developer";

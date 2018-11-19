@@ -1,4 +1,5 @@
 <?php 
+  include_once('dshbrd.php');
   include_once('header.php');
   include_once('sideBar.php');
 ?>
@@ -20,65 +21,110 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-aqua">
-            <div class="inner">
-              <h3>150</h3>
-
-              <p>New Orders</p>
-            </div>
-            <div class="icon">
-              <i class="ion ion-bag"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-red"><i class="ion ion-ios-people-outline" style="line-height:none;"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Block Users : <p class="countNumber info-box-number"><?php echo $all['block']; ?></p></span>
+              <span class="info-box-text">Unblock Users : <p class="countNumber info-box-number"><?php echo $all['unblock']; ?></p></span>
+            </div>           
+            <!-- /.info-box-content -->
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-green">
-            <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
-
-              <p>Bounce Rate</p>
+          <!-- /.info-box -->
+        </div> 
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-yellow"><i class="fa fa-book"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Classes</span>
+              <span class="info-box-number"><?php echo $CSC['Classes']; ?></span>
             </div>
-            <div class="icon">
-              <i class="ion ion-stats-bars"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- /.info-box-content -->
           </div>
-        </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <div class="small-box bg-yellow">
-            <div class="inner">
-              <h3>44</h3>
-
-              <p>User Registrations</p>
+          <!-- /.info-box -->
+        </div> 
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-book"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Subjects</span>
+              <span class="info-box-number"><?php echo $CSC['Subject']; ?></span>
             </div>
-            <div class="icon">
-              <i class="ion ion-person-add"></i>
-            </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <!-- /.info-box-content -->
           </div>
-        </div>
-        <!-- ./col -->
+          <!-- /.info-box -->
+        </div> 
+        <div class="col-md-3 col-sm-6 col-xs-12">
+          <div class="info-box">
+            <span class="info-box-icon bg-green"><i class="fa fa-book"></i></span>
+            <div class="info-box-content">
+              <span class="info-box-text">Chapter</span>
+              <span class="info-box-number"><?php echo $CSC['Chapter']; ?></span>
+            </div>
+            <!-- /.info-box-content -->
+          </div>
+          <!-- /.info-box -->
+        </div>                               
+      </div>
+      <div class="row">
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3><?php echo $all['users']; ?></h3>
 
-              <p>Unique Visitors</p>
+              <p>Total add of users</p>
             </div>
             <div class="icon">
-              <i class="ion ion-pie-graph"></i>
+              <i class="ion ion-person-add"></i>
             </div>
-            <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            <a href="user/listing.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
           </div>
         </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-yellow">
+            <div class="inner">
+              <h3><?php echo $CSC['Classes']; ?></h3>
+
+              <p>Total number of add class</p>
+            </div>
+            <div class="icon">
+              <i class="icon fa fa-book" style="top:15px;"></i>
+            </div>
+            <a href="class/listing.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>               
+        <!-- ./col -->
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-aqua">
+            <div class="inner">
+              <h3><?php echo $CSC['Subject']; ?></h3>
+
+              <p>Total number of add Subject</p>
+            </div>
+            <div class="icon">
+             <i class="icon fa fa-book" style="top:15px;"></i>
+            </div>
+            <a href="subject/listing" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>
+        <div class="col-lg-3 col-xs-6">
+          <!-- small box -->
+          <div class="small-box bg-green">
+            <div class="inner">
+              <!-- <h3>53<sup style="font-size: 20px">%</sup></h3> --><h3></h3>
+              <h3><?php echo $CSC['Chapter']; ?></h3>
+
+              <p>Total number of add Chapter</p>
+            </div>
+            <div class="icon">
+              <i class="icon fa fa-book" style="top:15px;"></i>
+            </div>
+            <a href="chapter/listing.php" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+          </div>
+        </div>        
         <!-- ./col -->
       </div>
       <!-- /.row -->

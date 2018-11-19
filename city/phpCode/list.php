@@ -7,19 +7,25 @@ try{
 // This custom function is used to delete of the multiple records
   if( $multiAction == 'deleted' ){
     foreach( $user as $id ){
-      DeleteAction( SUBJECT , $id); 
+      DeleteAction( CITY , $id); 
     }
   } 
 // This method is used to delete the row in database using PDO 
   if( $task == 'delete' ){
     $id = $_REQUEST['id'];
-    DeleteAction( SUBJECT , $id); 
+    DeleteAction( CITY , $id); 
   }
 // This method is used to search of the value form database   
   if(!empty($searchBar)){
     $queryPart   = "
       WHERE
-        ".SUBJECT.".`title` LIKE :searchBar
+        `".CITY."`.`title` LIKE :searchBar
+      OR
+       `".COUNTRY."`.`title` LIKE :searchBar  
+      OR
+       `".STATE."`.`title` LIKE :searchBar  
+      OR
+       `".DISTRICT."`.`title` LIKE :searchBar                
     ";
   } 
 // This method is used to Ascending / Descending Order  
@@ -29,14 +35,24 @@ try{
   $query = "
     SELECT
     SQL_CALC_FOUND_ROWS
-    `".SUBJECT."`.*,
-    `".CLASSES."`.title as cTitle
+    `".CITY."`.*,
+    `".COUNTRY."`.title as cTitle,
+    `".STATE."`.title as sTitle,
+    `".DISTRICT."`.title as dTitle
     FROM
-      `".SUBJECT."`
+      `".CITY."`
     INNER JOIN  
-      `".CLASSES."`
+      `".COUNTRY."`
     ON  
-      `".SUBJECT."`.classSubject = `".CLASSES."`.id
+      `".CITY."`.country_id = `".COUNTRY."`.id
+    INNER JOIN  
+      `".STATE."`
+    ON  
+      `".CITY."`.state_id = `".STATE."`.id
+    INNER JOIN  
+      `".DISTRICT."`
+    ON  
+      `".CITY."`.district_id = `".DISTRICT."`.id            
       {$queryPart}
       {$orderPart}
     LIMIT :limitPosition , :record_perpage 

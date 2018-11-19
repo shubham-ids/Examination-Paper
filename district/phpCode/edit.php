@@ -14,17 +14,17 @@ try{
       $status = "";
   }   
   if(isset($_REQUEST['edit'])){
-  $title       = $_REQUEST['title'];
-  $description = $_REQUEST['description'];
-  $duration    = $_REQUEST['duration'];   
+    $title       = $_REQUEST['title'];
+    $description = $_REQUEST['description'];
+    $stateId     = $_REQUEST['state_id']; 
+    $countryId   = $_REQUEST['Country_id'];
     
   // This methos is used to display the required message
-    $validationErrorMessage = false;
-    
-    if(empty($title) || empty($description) || empty($duration) ){
-      $ErrorMessage = "<p class='callout callout-danger '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
-      $validationErrorMessage = true;
-    }  
+  $validationErrorMessage = false;
+  if( empty($title) || empty($description) || empty($stateId) || empty($countryId)){
+    $ErrorMessage = "<p class='callout callout-danger '><i class='icon fa fa-ban'> </i> Fill the blank field</p>";
+    $validationErrorMessage = true;
+  }   
   // This method is used to when validation error message is false
   // Then this statement is executed 
   // Else this method is display the error  
@@ -35,7 +35,7 @@ try{
   // This mehod is used to checked the email
   // If email is already insert database then display the error 
   // Else database in wich store the data 
-    $fetch = $pdo->prepare("SELECT * FROM `".CLASSES."` WHERE title = :title ");
+    $fetch = $pdo->prepare("SELECT * FROM `".DISTRICT."` WHERE title = :title ");
     $result = $fetch->execute(['title' => $title]); 
     $rowCount = $fetch->rowCount();
     if($rowCount < 1){ 
@@ -43,18 +43,20 @@ try{
         'id'          => $id, 
         'title'       => $title,
         'description' => $description,
-        'duration'    => $duration
+        'stateId'     => $stateId,
+        'countryId'   => $countryId
       ];
     // Update query
         $query =" 
           UPDATE 
-            `".CLASSES."` 
+            `".DISTRICT."` 
             SET
-            `title`        = :title,
-            `description`  = :description,
-            `duration`     = :duration 
+              `title`        = :title,
+              `description`  = :description,
+              `country_id`   = :countryId,
+              `state_id`     = :stateId 
             WHERE 
-            `id` = :id
+              `id` = :id
           ";    
         $updateQuery = $pdo->prepare($query);
         $response = $updateQuery->execute($rows);
@@ -69,16 +71,20 @@ try{
         displayMessage('Your Record is not updated !' ,'danger','ban');
       }         
     }else{
-      displayMessage( $title.' is already include!' ,'danger','ban');
+       $selectQuery  =  $pdo->query("SELECT `id`,`title` FROM ".STATE." WHERE id =".$stateId);
+      while( $fetch = $selectQuery->fetch() ){ 
+          displayMessage( 'State name : "'.$title.'" already include for "'.$fetch['title'].'"' ,'danger','ban');
+      }  
     } 
   } // Closed the breases is validation error message are true
 }
 
 // This method is used to fatch the data in databade using Id
-  $query = "SELECT * FROM ".CLASSES." WHERE id = :id";
+  $query = "SELECT * FROM ".DISTRICT." WHERE id = :id";
   $selectQuery = $pdo->prepare($query);
   $selectQuery->execute([ 'id' => $id] );
   $row = $selectQuery->fetch();
+  $fetchData =  $pdo->query("SELECT `id`,`title` FROM ".STATE);
 }catch(PDOException $e){
     echo "Not display the record contact the developer";
     echo $e->getMessage();

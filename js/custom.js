@@ -169,6 +169,93 @@ $(document).ready(function(){
     }   
     return false;
   });
+// This method is used to first dropdown select Value
+// Then fetch the data   
+  $('#country').on('change',function(){
+  // This method is used to get the drop down select value
+    var country = '';
+    $.each($("#country option:selected"), function(){            
+      country = $(this).val();
+      $('#state').removeAttr("disabled");
+    });
+    console.log("You have selected the action - " + country);
+    if(country == ''){
+      $('#state').attr("disabled",'');
+      $('#district').attr("disabled",''); 
+      return; 
+    }
+    if(country != ''){
+      $('#state').removeAttr("disabled");
+      $.ajax({
+        type: "post",
+        url:  "../state.php",
+        data: {CountryId:country},  
+        success: function(data){
+          $('#state').html(data);
+          $('#district').attr("disabled",'');
+        },
+        error: function(){
+          alert('Something is wrong !');
+        },  
+      });
+    }
+  });
+  $('#state').on('change',function(){
+  // This method is used to get the drop down select value
+    var state = '';
+    $.each($("#state option:selected"), function(){            
+      state = $(this).val();
+    });   
+    if(state == ''){
+      return $('#district').attr("disabled",''); 
+    }  
+    if(state != ''){  
+      $('#district').removeAttr("disabled");
+      $.ajax({
+        type: "post",
+        url:  "../state.php",
+        data: {stateId:state},  
+        success: function(data){
+          $('#district').html(data);
+        },
+        error: function(){
+          alert('Something is wrong !');
+        },    
+      });
+    }    
+  });
+
+/*
+ *
+*/
 
 
+
+
+
+/*
+$('#country').on('change',function(){
+  DependentDropdownBox('#country','#state');
+});
+$('#state').on('change',function(){
+  DependentDropdownBox('#state','#district');
+});   
+function DependentDropdownBox( $fieldId,$output){
+// This method is used to first dropdown select Value
+// Then fetch the data   
+  $inputId = $($fieldId).val();
+  $.ajax({
+    type: "post",
+    url:  "../state.php",
+    data: {Id:$inputId},  
+    success: function(data){
+      console.log(data);
+      $($output).html(data);
+    },
+    error: function(){
+      alert('Something is wrong !');
+    },     
+  });     
+}
+*/       
 });

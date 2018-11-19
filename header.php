@@ -1,4 +1,4 @@
-<?php include_once('db/connection.php'); ?>
+<?php include_once('function.php'); ?>
 <!DOCTYPE html>
 <html>
 <head>

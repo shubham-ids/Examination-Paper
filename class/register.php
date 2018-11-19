@@ -33,31 +33,12 @@
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">                      
                   <div class="col-sm-12">
-                    <div class="form-group editGroup">
-                      <label>Class Name :</label>
-                      <input 
-                        type="text" 
-                        class="form-control editDisableInput"
-                        name="title" 
-                        placeholder="Enter Class Name" 
-                        value="<?php echo empty($title) ? '' : $title; ?>" >  
-                    </div>
-                    <div class="form-group editGroup">
-                      <label>Description :</label>
-                      <textarea class="form-control editDisableInput" name="description" placeholder="Enter Description"><?php echo empty($description) ? '' : $description; ?></textarea>                     
-                    </div>
-                    <div class="form-group editGroup">
-                      <label>Duration :</label>
-                      <input 
-                        type="text" 
-                        class="form-control editDisableInput" 
-                        name="duration" 
-                        placeholder="Enter Duration" 
-                        value="<?php echo empty($duration) ? '' : $duration; ?>" >                     
-                    </div>                                  
-                    <div class="form-group ">
-                      <button class="btn btn-block btn-primary" name="add">Submit</button> 
-                    </div>                                 
+                    <?php 
+                      addInputField('Class Name :','title','Enter Class Name',empty($title) ? '' : $title);
+                      addTextareaField('Description :','description','Enter Description',empty($description) ? '' : $description);
+                      addInputField('Duration :','duration','Duration',empty($duration) ? '' : $duration);
+                      addButtonField('add','Submit');
+                     ?>                                                                
                   </div>
                 </div>
               </div>      

@@ -11,6 +11,10 @@
   define('CLASSES','class');
   define('SUBJECT','subject');
   define('CHAPTER','chapters');
+  define('COUNTRY','country');
+  define('STATE','state');
+  define('DISTRICT','district');
+  define('CITY','city');
   // Database connectivity
   $dsn1 = 'mysql:dbname='.CLASSICMODEL.';host=127.0.0.1'; # Data Source Name
   $dsn  = 'mysql:dbname='.EXAM.';host=127.0.0.1;charset=utf8'; # Data Source Name
@@ -27,6 +31,5 @@
   # Move to cofig file
   ini_set('display_startup_errors', 1);
   ini_set('display_errors', 1);
-  error_reporting(-1);  
-  define('URL','http://localhost/Examination-Paper/');
+  error_reporting(-1);
 ?>

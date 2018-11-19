@@ -26,7 +26,7 @@
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">MAIN NAVIGATION</li>
-      <li class="active treeview">
+      <li class="treeview">
         <a href="#">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
           <span class="pull-right-container">
@@ -38,56 +38,65 @@
         </ul>
       </li>
       <li class="header">LABELS</li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-users"></i> <span>Users</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="<?php echo URL; ?>user/login.php"><i class="fa fa-circle-o">    </i> Login        </a></li>
-          <li><a href="<?php echo URL; ?>user/register.php"><i class="fa fa-circle-o"> </i> Register     </a></li>
-          <li><a href="<?php echo URL; ?>user/listing.php"><i class="fa fa-circle-o">  </i> Users Profile</a></li>
-        </ul>
-      </li> 
+      <?php 
+        $url = [
+          'Login'         => 'user/login.php',
+          'Register'      => 'user/register.php',
+          'Users Profile' => 'user/listing.php'
+        ];
+        addLabelField('users','Users' , $url);
+      ?>         
       <li class="header">LABELS</li>
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-folder"></i> <span>Class</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="<?php echo URL; ?>class/register.php"><i class="fa fa-circle-o"> </i>Add Class</a></li>
-          <li><a href="<?php echo URL; ?>class/listing.php"><i class="fa fa-circle-o">  </i>All Classes</a></li>
-        </ul>
-      </li>       
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-book"></i> <span>Subject</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="<?php echo URL; ?>subject/register.php"><i class="fa fa-circle-o"> </i>Add Subject</a></li>
-          <li><a href="<?php echo URL; ?>subject/listing.php"><i class="fa fa-circle-o">  </i>All Subjects</a></li>
-        </ul>
-      </li>    
-      <li class="treeview">
-        <a href="#">
-          <i class="fa fa-book"></i> <span>Chapter</span>
-          <span class="pull-right-container">
-            <i class="fa fa-angle-left pull-right"></i>
-          </span>
-        </a>
-        <ul class="treeview-menu">
-          <li><a href="<?php echo URL; ?>chapter/register.php"><i class="fa fa-circle-o"> </i>Add Chapter</a></li>
-          <li><a href="<?php echo URL; ?>chapter/listing.php"><i class="fa fa-circle-o">  </i>All Chapters</a></li>
-        </ul>
-      </li>               
+      <?php 
+        $url = [
+          'Add Class'   => 'class/register.php',
+          'All Classes' => 'class/listing.php'
+        ];
+        addLabelField('folder','Class' , $url);
+      ?>              
+      <?php 
+        $url = [
+          'Add Subject'   => 'subject/register.php',
+          'All Subjects'  => 'subject/listing.php'
+        ];
+        addLabelField('book','Subject' , $url);
+      ?>        
+      <?php 
+        $url = [
+          'Add Chapter'   => 'chapter/register.php',
+          'All Chapters'  => 'chapter/listing.php'
+        ];
+        addLabelField('book','Chapter' , $url);
+      ?>      
+      <li class="header">LABELS</li>    
+      <?php 
+        $url = [
+          'Add Country'   => 'country/register.php',
+          'All Countries' => 'country/listing.php'
+        ];
+        addLabelField('flag-checkered','Country' , $url);
+      ?>
+      <?php 
+        $url = [
+          'Add State'   => 'state/register.php',
+          'All States' => 'state/listing.php'
+        ];
+        addLabelField('flag-o','State' , $url);
+      ?> 
+      <?php 
+        $url = [
+          'Add District' => 'district/register.php',
+          'All District' => 'district/listing.php'
+        ];
+        addLabelField('flag-o','District' , $url);
+      ?> 
+      <?php 
+        $url = [
+          'Add City' => 'city/register.php',
+          'All City' => 'city/listing.php'
+        ];
+        addLabelField('map-marker','City' , $url);
+      ?>                                  
     </ul>
   </section>
   <!-- /.sidebar -->

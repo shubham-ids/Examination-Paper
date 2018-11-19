@@ -19,9 +19,9 @@ try{
   if(!empty($searchBar)){
     $queryPart   = "
       WHERE
-        `title`       LIKE :searchBar
+        `".CHAPTER."`.`title`       LIKE :searchBar
       OR  
-        `description` LIKE :searchBar
+        `".CHAPTER."`.`description` LIKE :searchBar
     ";
   } 
 // This method is used to Ascending / Descending Order  

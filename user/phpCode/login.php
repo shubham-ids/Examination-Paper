@@ -1,5 +1,6 @@
 <?php
 include('../db/connection.php');
+include('../function.php');
 $message = "";
 try{
   if(isset($_REQUEST['login'])){

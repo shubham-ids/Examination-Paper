@@ -1,5 +1,5 @@
 <?php 
-  include_once('phpCode/edit.php');
+  include_once('phpCode/add.php');
   include_once('../header.php');
   include_once('../sideBar.php'); 
 ?>
@@ -9,13 +9,11 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        Edit Class
-        <small><a href="listing.php">Back page</a></small>
+        <small>Add City </small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="listing.php">All Classes</a></li>
-        <li class="active">Add Class</li>
+        <li class="active">Add City</li>
       </ol>
     </section>
     <section class="content">
@@ -23,7 +21,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Update of the class</h3>
+              <h3 class="box-title">Add the new City using District</h3>
             </div>
             <div class="box-body">
               <?php
@@ -31,16 +29,18 @@
                   echo $ErrorMessage;
                 } 
                 echo $message;
-              ?>               
+              ?>         
               <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
                 <div class="row">                      
                   <div class="col-sm-12">
                     <?php 
-                      addInputField('Class Name :','title','Enter Class Name',empty($row['title']) ? '' : $row['title']);
-                      addTextareaField('Description :','description','Enter Description',empty($row['description']) ? '' : $row['description']);
-                      addInputField('Duration :','duration','Duration',empty($row['duration']) ? '' : $row['duration']);
-                      addButtonField('edit','Submit');
-                     ?>                                                                                                                                                 
+                      addInputField('City :','title','Enter City Name',empty($title) ? '' : $title);
+                      addTextareaField('Description :','description','Enter Description',empty($description) ? '' : $description);
+                      countryFetchData(empty($description) ? '' : $description);
+                      addSelectFIeld('State','state_id' ,'state');
+                      addSelectFIeld('District','district_id' ,'district');
+                      addButtonField('add','Submit'); 
+                    ?>                                                             
                   </div>
                 </div>
               </div>      
@@ -55,4 +55,5 @@
       </div>
     <!-- content -->
 </form>
-<?php include_once('../footer.php'); ?>
+<?php include_once('../footer.php'); ?>+
+-

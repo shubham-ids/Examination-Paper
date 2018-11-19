@@ -15,12 +15,12 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <h1>
-        All Classes
+        All State
         <small><a href="register.php">Add new </a></small>
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?php echo URL; ?>index.php"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li class="active">All Classes</li>
+        <li class="active">All State</li>
       </ol>
     </section>
     <!-- Main content -->
@@ -29,7 +29,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">All Classes</h3>
+              <h3 class="box-title">All State</h3>
             </div> 
             <!-- /.box-header -->
             <div class="box-body" >
@@ -46,9 +46,9 @@
                     ?>
                     <?php
                       $optionFieldValue = [
-                        '2' => '2',
-                        '4' => '4',
-                        '5' => '5'
+                        '10' => '10',
+                        '20' => '20',
+                        '30' => '30'
                       ];
                       showEnteriesField('showEntries' , $optionFieldValue , $record_perpage);
                     ?>
@@ -62,10 +62,10 @@
                         <tr>
                           <?php
                             $tableHeadName = [
-                              'title'       => 'Class Name',
+                              'title'       => 'Country Name',
                               'description' => 'Description',
-                              'duration'    => 'Duration',
-                              'create-on'   => 'Create on'
+                              'country_id'  => 'Country Name',
+                              'create_on'   => 'Create on'
                             ];
                             renderTableHead( $tableHeadName , $order , $currentPage);
                           ?>
@@ -93,11 +93,9 @@
                             <td><input type="checkbox" name="users[]" class="checkItem" value="<?php echo $row['id']; ?>"></td>
                             <td><?php echo ++$limitPosition; ?></td>
                             <td><?php echo $row['title']; ?></td>
-                            <td>
-                              <?php $string = $row['description']; echo mb_strimwidth($string, 0, 40, "....."); ?>    
-                            </td>
-                            <td><?php echo $row['duration']; ?></td>
-                            <td><?php echo $row['create-on']; ?></td>
+                            <td><?php $string = $row['description']; echo mb_strimwidth($string, 0, 40, "....."); ?></td>
+                            <td><?php echo $row['cTitle']; ?></td>
+                            <td><?php echo $row['create_on']; ?></td>
                             <td align="left">
                               <a 
                                 href  = "update.php?task=edit&id=<?php echo $row['id']; ?>"
@@ -142,24 +140,3 @@
   <!-- /.content-wrapper -->
 </form>  
 <?php include_once('../footer.php'); ?>
-<script type="text/javascript"> 
-  $(document).ready(function(){
-    $('#dataEntries').on('change',function(){
-        $value = $(this).val();
-        if($value){
-          $.ajax({
-            type: "get",
-            url:  "?showEntries="+$value,
-            data: {entries:$value},  
-            success: function(data){
-              console.log(data);
-              //$('#district').html(data);
-            },
-            error: function(){
-              alert('Something is wrong !');
-            },             
-          });
-        }
-    });
-  });
-</script>

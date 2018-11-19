@@ -1,4 +1,5 @@
 <?php
+define('URL','http://localhost/Examination-Paper/');
 /*
  * Function Name : debug
  * parameter     : $input -> find the variable of value
@@ -11,11 +12,22 @@
     echo "</pre>";
   }
 /*
- * Function Name : displayRecord
+ * Function Name : DependentTable
  */
-  function displayRecord(){
-    // Mysql select query
-  }
+function DependentTable($requestName , $tableName , $databaseColumn , $name ){
+  global $pdo;
+  if(!empty($_REQUEST[$requestName])){
+    $State  =  $pdo->prepare( "SELECT * FROM `".$tableName."` WHERE `".$databaseColumn."` = ".$_REQUEST[$requestName] );
+    $res    = $State->execute();
+    $rslt = $State->fetchAll();
+    echo "<option value=''>Select ".$tableName."</option>";
+    foreach( $rslt as $fetch ){ ?>
+      <option value="<?php echo $fetch['id']; ?>" <?php echo ($name == $fetch['id']) ? 'selected ="selected" ' : '' ?>><?php echo $fetch['title']; ?></option>
+<?php 
+    }
+  }  
+}
+
 /*
  * Function Name : DeleteAction
  * Parameter     : $tableName -> write the table name from database
@@ -127,6 +139,41 @@ function Querystring($totalpages , $currentPage  ){
     return false;
   }
 /*
+ *
+*/
+  function addSelectFIeld($lableName , $name ,$id){ ?>
+    <div class="form-group editGroup" >
+      <label><?php echo $lableName ?> :</label>
+      <select class="form-control" name="<?php echo $name; ?>" id="<?php echo $id ?>" disabled="">
+        <option value="">Select</option>
+      </select>                  
+    </div> 
+<?php     
+  } 
+/*
+ *
+*/
+  function countryFetchData($country){
+    global $pdo; 
+?>
+    <div class="form-group editGroup">
+      <label>Country :</label>
+      <select class="form-control" name="Country_id" id="country">
+        <option value="">Select</option>
+        <?php
+           $query = "SELECT * FROM ".COUNTRY;
+           $Cntry  =  $pdo->prepare($query);
+           $Cntry->execute(); 
+          while( $fetch = $Cntry->fetch() ){ ?>
+        <option value="<?php echo $fetch['id']; ?>" <?php echo ($country == $fetch['id']) ? 'selected="selected"' : ''  ?> >
+            <?php echo $fetch['title']; ?>                
+        </option>
+      <?php } ?>
+      </select>                  
+  </div>
+<?php                      
+  }  
+/*
 * Function Name : pagination
 * Parameter     : $currentPage -> set the current page value
 *               : $order       -> set the default order value in assending and dessending value
@@ -167,8 +214,8 @@ function Querystring($totalpages , $currentPage  ){
           <?php } ?>
           <?php  
             if( $currentPage ){
-              $next       = $currentPage+1; 
               $next       = ($response == 0)?'#':'';
+              $next       = $currentPage+1; 
               $className  = ($currentPage == $totalpages)? 'disabled' : '';
               $className  = ($response == 0)?'disabled':'';
               $linkOnload = ($currentPage == $totalpages)? '#' : '';
@@ -195,7 +242,7 @@ function Querystring($totalpages , $currentPage  ){
  function showEnteriesField($fieldname , $option , $record_perpage){ ?>
   <div class="dataTables_length col-sm-4" id="example1_length">
     <label>Show 
-      <select name="<?php echo $fieldname; ?>" aria-controls="example1" class="form-control input-sm">
+      <select name="<?php echo $fieldname; ?>" id="dataEntries" aria-controls="example1" class="form-control input-sm">
         <?php foreach( $option as  $value ){ ?>
           <option 
             value="<?php echo $value; ?>" <?php echo ($record_perpage == $value) ? "selected='selected'" : "" ; ?>>
@@ -252,4 +299,75 @@ function Querystring($totalpages , $currentPage  ){
         <button class="btn btn-sm btn-primary btn-create" id="actionButton">Action</button>
       </label>
     </div> 
-<?php  return true;} ?>  
+<?php  return true;} ?>
+<?php
+/*
+ * Function Name : addLabelField
+ * Parameters    : $iconName -> Enter only icon last name eg:-> fa fa-"falg" <- write only double coat name
+                 : $fieldLableName -> Display of the name
+                 : $url -> Enter your file path eg:-> folder/filename.php
+ * Return        : true
+*/
+  function addLabelField($iconName,$fieldLableName , $url){ ?>
+    <li class="treeview">
+      <a href="#">
+        <i class="fa fa-<?php echo $iconName; ?>"></i> <span><?php echo $fieldLableName; ?></span>
+        <span class="pull-right-container">
+          <i class="fa fa-angle-left pull-right"></i>
+        </span>
+      </a>
+      <ul class="treeview-menu">
+        <?php foreach($url as $key => $value){ ?>
+          <li><a href="<?php echo URL; ?><?php echo $value; ?>"><i class="fa fa-circle-o"> </i><?php echo $key; ?></a></li>
+        <?php } ?>
+      </ul>
+    </li> 
+<?php return true;} ?>  
+<?php
+/*
+ * Function Name : addInputField
+ * Parameter     : $LableName -> Display of the lable name
+                 : $fieldName -> Enter field name
+                 : placeholder-> Enter Placeholder
+ * Return        : true                
+*/
+function addInputField($LableName,$fieldName,$placeholder,$value){ ?>
+  <div class="form-group editGroup">
+    <label><?php echo $LableName; ?></label>
+    <input 
+      type="text" 
+      class="form-control editDisableInput"
+      name="<?php echo $fieldName; ?>" 
+      placeholder="<?php echo $placeholder; ?>" 
+      value="<?php echo $value; ?>" >  
+  </div>
+<?php return true;} ?>
+<?php
+/*
+ * Function Name : addTextareaField
+ * Parameter     : $LableName -> Display of the lable name
+                 : $fieldName -> Enter field name
+                 : placeholder-> Enter Placeholder
+ * Return        : true  
+*/ 
+  function addTextareaField($LableName,$fieldName,$placeholder,$value ){ ?>
+    <div class="form-group editGroup">
+      <label><?php echo $LableName; ?></label>
+      <textarea 
+        class="form-control editDisableInput" 
+        name="<?php echo $fieldName; ?>" 
+        placeholder="<?php echo $placeholder; ?>"><?php echo $value; ?></textarea>                     
+    </div>
+<?php return true;} ?>
+<?php
+/*
+* Function Name : addButtonField
+* Parameter     : $fieldName -> Enter field name
+                : $displayName -> Show displayName
+* Return        : true                
+*/
+  function addButtonField($fieldName,$displayName){ ?>
+    <div class="form-group ">
+      <button class="btn btn-block btn-primary" name="<?php echo $fieldName; ?>"><?php echo $displayName; ?></button> 
+    </div>  
+<?php return true;} ?>
