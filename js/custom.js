@@ -178,7 +178,6 @@ $(document).ready(function(){
       country = $(this).val();
       $('#state').removeAttr("disabled");
     });
-    console.log("You have selected the action - " + country);
     if(country == ''){
       $('#state').attr("disabled",'');
       $('#district').attr("disabled",''); 
@@ -189,14 +188,21 @@ $(document).ready(function(){
       $.ajax({
         type: "post",
         url:  "../state.php",
-        data: {CountryId:country},  
+        data: {CountryId:country},
+        beforeSend: function(){
+          $('#process').addClass('overlay');
+          $('.overlay').html('<i class="fa fa-refresh fa-spin"></i>');
+        },          
         success: function(data){
           $('#state').html(data);
           $('#district').attr("disabled",'');
         },
         error: function(){
           alert('Something is wrong !');
-        },  
+        }, 
+        complete: function(){
+          $('#process').removeClass('overlay');
+        }        
       });
     }
   });
@@ -214,20 +220,46 @@ $(document).ready(function(){
       $.ajax({
         type: "post",
         url:  "../state.php",
-        data: {stateId:state},  
+        data: {stateId:state}, 
+        beforeSend: function(){
+          $('#process').addClass('overlay');
+          $('.overlay').html('<i class="fa fa-refresh fa-spin"></i>');
+        },          
         success: function(data){
           $('#district').html(data);
         },
         error: function(){
           alert('Something is wrong !');
-        },    
+        },
+        complete: function(){
+          $('#process').removeClass('overlay');
+        }                     
       });
     }    
   });
 
 /*
  *
-*/
+*/ 
+  // $('#dataEntries').on('change',function(){
+  //     var value = $(this).val();
+  //     console.log(value);
+  //     if(value != ""){
+  //       $.ajax({
+  //         type: "get",
+  //         url:  "entry.php",
+  //         data: {entries:value},  
+  //         success: function(data){
+  //           console.log(data);
+  //           $('form').html(data);
+  //         },
+  //         error: function(){
+  //           alert('Something is wrong !');
+  //         },             
+  //       });
+  //     }
+  // });
+
 
 
 

@@ -24,6 +24,7 @@
               <h3 class="box-title">Add the new District using State</h3>
             </div>
             <div class="box-body">
+              <div id="process"></div>
               <?php
                 if(isset( $ErrorMessage ) == true){
                   echo $ErrorMessage;
@@ -39,7 +40,7 @@
                       countryFetchData(empty($countryId) ? '' : $countryId);
                       addSelectFIeld('State','state_id' ,'state');
                       addButtonField('add','Submit');
-                      ?>                                                             
+                    ?>                                                             
                   </div>
                 </div>
               </div>      

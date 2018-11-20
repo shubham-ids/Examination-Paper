@@ -1,5 +1,6 @@
 <?php
-define('URL','http://localhost/Examination-Paper/');
+// This method is used to Constant Variable name
+  define('URL','http://localhost/Examination-Paper/');
 /*
  * Function Name : debug
  * parameter     : $input -> find the variable of value
@@ -13,6 +14,11 @@ define('URL','http://localhost/Examination-Paper/');
   }
 /*
  * Function Name : DependentTable
+ * Parameter     : $requestName -> Isme server se jo request name aai hai uskol define krna hai.
+                 : $tableName -> Enter the table name
+                 : $databaseColumn -> Enter the table in which include column name 
+                 : $name -> Enter the select dropdown field name
+ * Return        : true
  */
 function DependentTable($requestName , $tableName , $databaseColumn , $name ){
   global $pdo;
@@ -25,7 +31,8 @@ function DependentTable($requestName , $tableName , $databaseColumn , $name ){
       <option value="<?php echo $fetch['id']; ?>" <?php echo ($name == $fetch['id']) ? 'selected ="selected" ' : '' ?>><?php echo $fetch['title']; ?></option>
 <?php 
     }
-  }  
+  } 
+  return true; 
 }
 
 /*
@@ -61,6 +68,7 @@ function DependentTable($requestName , $tableName , $databaseColumn , $name ){
 * Function Name : Querystring
 * Parameter     : $totalpages  -> PerPage of records
                 : $currentPage -> current page of the value
+* Return        : Empty
 */
 function Querystring($totalpages , $currentPage  ){
   if($totalpages != 0 && $currentPage > $totalpages) {
@@ -139,7 +147,11 @@ function Querystring($totalpages , $currentPage  ){
     return false;
   }
 /*
- *
+ *  Function Name : addSelectFIeld()
+ *  Parameters    : $lableName -> Display of the name for lable tag
+                  : $name -> Enter the field of the name 
+                  : $id -> Enter the name of ID
+ *  Return        : Empty                
 */
   function addSelectFIeld($lableName , $name ,$id){ ?>
     <div class="form-group editGroup" >
@@ -151,7 +163,9 @@ function Querystring($totalpages , $currentPage  ){
 <?php     
   } 
 /*
- *
+ * Function Name : countryFetchData()
+ * Parameters    : $country -> This parameter is used to enter the field name
+ * Return        : Empty
 */
   function countryFetchData($country){
     global $pdo; 

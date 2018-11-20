@@ -1,7 +1,5 @@
 <?php 
   include_once('phpCode/list.php');
-  include_once('../header.php'); 
-  include_once('../sideBar.php');
 ?>
 <!--
   /**** Already variable name are use in function file: ***/
@@ -9,7 +7,6 @@
     $searchName , $response , $totalpages , $fieldname , $option , $record_perpage,$fieldName  , $addField    
     $tableName , $id ,$queryArray,$queryString,$messsage , $input
 -->
-<form method="get">
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -140,5 +137,3 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-</form>  
-<?php include_once('../footer.php'); ?>

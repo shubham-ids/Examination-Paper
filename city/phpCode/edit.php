@@ -81,7 +81,6 @@ try{
   $selectQuery = $pdo->prepare($query);
   $selectQuery->execute([ 'id' => $id] );
   $row = $selectQuery->fetch();
-  debug($row);
 }catch(PDOException $e){
     echo "Not display the record contact the developer";
     echo $e->getMessage();
